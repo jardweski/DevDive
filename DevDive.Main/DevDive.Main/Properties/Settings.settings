@@ -1,0 +1,14 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="DevDive.Main.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Servidor" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">127.0.0.1,1433</Value>
+    </Setting>
+    <Setting Name="Banco" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DevDive.Yerbalatina</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70B1F669-C28B-4077-850C-7F41D100D313}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DevDive.Production</RootNamespace>
+    <AssemblyName>DevDive.Production</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\CONTROLS\BIBLIOTECAS MP\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1Ribbon.2, Version=2.0.20133.510, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DevDive.Main\DevDive.Main\bin\Debug\C1.Win.C1Ribbon.2.dll</HintPath>
+    </Reference>
+    <Reference Include="MP.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DevDive.Main\DevDive.Main\bin\Debug\MP.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="MP.Reporting.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MP.Reporting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MP.Reporting.WinForms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MP.Reporting.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormManagerRequisitions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormManagerRequisitions.Designer.cs">
+      <DependentUpon>FormManagerRequisitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequisitions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequisitions.Designer.cs">
+      <DependentUpon>FormRequisitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSearchProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSearchProcess.Designer.cs">
+      <DependentUpon>FormSearchProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs" />
+    <Compile Include="ProcessProduction.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="FormManagerOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormManagerOrders.Designer.cs">
+      <DependentUpon>FormManagerOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOrderStarter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOrderStarter.Designer.cs">
+      <DependentUpon>FormOrderStarter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductionController.cs" />
+    <Compile Include="ProductionOrder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportModuleProduction.cs" />
+    <Compile Include="Requisitions.cs" />
+    <EmbeddedResource Include="FormManagerRequisitions.resx">
+      <DependentUpon>FormManagerRequisitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormManagerOrders.resx">
+      <DependentUpon>FormManagerOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOrderStarter.resx">
+      <DependentUpon>FormOrderStarter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequisitions.resx">
+      <DependentUpon>FormRequisitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSearchProcess.resx">
+      <DependentUpon>FormSearchProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TextFile1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevDive.Common\DevDive.Common.csproj">
+      <Project>{3485ccc9-30c4-4e07-bf7b-d227d08f9020}</Project>
+      <Name>DevDive.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevDive.Register\DevDive.Register.csproj">
+      <Project>{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}</Project>
+      <Name>DevDive.Register</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

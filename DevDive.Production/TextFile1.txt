@@ -1,0 +1,16 @@
+﻿SELECT  *
+FROM    dbo.tblordemproducao;
+
+SELECT  tblprodutos.Codigo ,
+        tblprodutos.Descricao ,
+        tblprodutosmovimento.Quantidade
+FROM    dbo.tblordemproducaoprodutos
+        INNER JOIN dbo.tblprodutosmovimento ON tblprodutosmovimento.Id = tblordemproducaoprodutos.IdProdutoMovimento
+        INNER JOIN tblprodutos ON tblprodutos.Id = tblprodutosmovimento.IdProduto;
+
+
+SELECT  tblprodutos.Codigo,tblprodutos.Descricao,tblprodutoscomposicaomp.Quantidade
+FROM    dbo.tblordemproducaoprodutos
+        INNER JOIN dbo.tblprodutosmovimento ON tblprodutosmovimento.Id = tblordemproducaoprodutos.IdProdutoMovimento
+		INNER JOIN dbo.tblprodutoscomposicaomp ON tblprodutoscomposicaomp.IdProduto = tblprodutosmovimento.IdProduto
+		INNER JOIN dbo.tblprodutos ON tblprodutos.Id = tblprodutoscomposicaomp.IdProdutoCompoe

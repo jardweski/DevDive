@@ -1,0 +1,121 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Main", "DevDive.Main\DevDive.Main.csproj", "{3B82EB66-5141-4D4F-8851-5A95E35E36B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Register", "..\DevDive.Register\DevDive.Register.csproj", "{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Production", "..\DevDive.Production\DevDive.Production.csproj", "{70B1F669-C28B-4077-850C-7F41D100D313}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Common", "..\DevDive.Common\DevDive.Common.csproj", "{3485CCC9-30C4-4E07-BF7B-D227D08F9020}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		ObfuscatedRelease|Any CPU = ObfuscatedRelease|Any CPU
+		ObfuscatedRelease|x64 = ObfuscatedRelease|x64
+		ObfuscatedRelease|x86 = ObfuscatedRelease|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|x64.Build.0 = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|Any CPU.Build.0 = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|x64.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|x64.Build.0 = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|x86.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.ObfuscatedRelease|x86.Build.0 = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|x64.Build.0 = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B82EB66-5141-4D4F-8851-5A95E35E36B5}.Release|x86.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|x64.Build.0 = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Debug|x86.Build.0 = Debug|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|Any CPU.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|x64.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|x64.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|x86.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.ObfuscatedRelease|x86.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|x64.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|x64.Build.0 = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|x86.ActiveCfg = Release|Any CPU
+		{27F6847F-7A2F-4CF9-AF49-DC450EF71B4B}.Release|x86.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|x64.Build.0 = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Debug|x86.Build.0 = Debug|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|Any CPU.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|x64.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|x64.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|x86.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.ObfuscatedRelease|x86.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|x64.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|x64.Build.0 = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|x86.ActiveCfg = Release|Any CPU
+		{70B1F669-C28B-4077-850C-7F41D100D313}.Release|x86.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|x64.Build.0 = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Debug|x86.Build.0 = Debug|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|Any CPU.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|x64.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|x64.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|x86.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.ObfuscatedRelease|x86.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|x64.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|x64.Build.0 = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|x86.ActiveCfg = Release|Any CPU
+		{3485CCC9-30C4-4E07-BF7B-D227D08F9020}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://jardweski.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DevDive.Main\\DevDive.Main.csproj
+		SccProjectName1 = DevDive.Main
+		SccLocalPath1 = DevDive.Main
+		SccProjectUniqueName2 = ..\\DevDive.Register\\DevDive.Register.csproj
+		SccProjectName2 = ../DevDive.Register
+		SccLocalPath2 = ..\\DevDive.Register
+		SccProjectUniqueName3 = ..\\DevDive.Production\\DevDive.Production.csproj
+		SccProjectName3 = ../DevDive.Production
+		SccLocalPath3 = ..\\DevDive.Production
+		SccProjectUniqueName4 = ..\\DevDive.Common\\DevDive.Common.csproj
+		SccProjectName4 = ../DevDive.Common
+		SccLocalPath4 = ..\\DevDive.Common
+	EndGlobalSection
+EndGlobal
