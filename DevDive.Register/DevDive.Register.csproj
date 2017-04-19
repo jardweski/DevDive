@@ -52,6 +52,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analises\FormAnalises.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analises\FormAnalises.Designer.cs">
+      <DependentUpon>FormAnalises.cs</DependentUpon>
+    </Compile>
     <Compile Include="EFormType.cs" />
     <Compile Include="ETipoProdutoProcesso.cs" />
     <Compile Include="Processos\ControleProcesso.cs" />
@@ -74,6 +80,9 @@
     <Compile Include="Produtos\ProdutoComposto.cs" />
     <Compile Include="Produtos\ProdutoControle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Analises\FormAnalises.resx">
+      <DependentUpon>FormAnalises.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Processos\FormProcessos.resx">
       <DependentUpon>FormProcessos.cs</DependentUpon>
     </EmbeddedResource>

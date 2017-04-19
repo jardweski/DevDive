@@ -37,12 +37,15 @@
             this.monitorarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acompanharPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.analToolStripMenuItem,
             this.cadastrosToolStripMenuItem,
             this.produçãoToolStripMenuItem,
             this.configuraçõesToolStripMenuItem});
@@ -106,6 +109,20 @@
             this.configuraçõesToolStripMenuItem.Text = "Configurações";
             this.configuraçõesToolStripMenuItem.Click += new System.EventHandler(this.configuraçõesToolStripMenuItem_Click);
             // 
+            // analToolStripMenuItem
+            // 
+            this.analToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cadastroToolStripMenuItem});
+            this.analToolStripMenuItem.Name = "analToolStripMenuItem";
+            this.analToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.analToolStripMenuItem.Text = "Análises";
+            // 
+            // cadastroToolStripMenuItem
+            // 
+            this.cadastroToolStripMenuItem.Name = "cadastroToolStripMenuItem";
+            this.cadastroToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cadastroToolStripMenuItem.Text = "Cadastro";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,6 +154,8 @@
         private System.Windows.Forms.ToolStripMenuItem monitorarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuraçõesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acompanharPedidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem analToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cadastroToolStripMenuItem;
     }
 }
 

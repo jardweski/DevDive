@@ -43,21 +43,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C1.Win.C1Ribbon.2, Version=2.0.20133.510, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DevDive.Main\DevDive.Main\bin\Debug\C1.Win.C1Ribbon.2.dll</HintPath>
+    <Reference Include="MP.Forms">
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="MP.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DevDive.Main\DevDive.Main\bin\Debug\MP.Forms.dll</HintPath>
+    <Reference Include="MP.Reporting.Core">
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Reporting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MP.Reporting.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MP.Reporting.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MP.Reporting.WinForms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MP.Reporting.WinForms.dll</HintPath>
+    <Reference Include="MP.Reporting.WinForms">
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Reporting.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
