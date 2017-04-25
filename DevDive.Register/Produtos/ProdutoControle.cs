@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using DevDive.Common;
+using DevDive.Register.ProdutosAnalises;
 using DevDive.Register.ProdutosProcessos;
 
 namespace DevDive.Register.Produtos
@@ -178,7 +179,55 @@ namespace DevDive.Register.Produtos
             return null;
         }
 
-        public DevDiveReturn SaveProcessProduct(int IdProdutoComposto, BindingList<ProdutoProcesso> produtosProcessos)
+        public IEnumerable<ProdutoAnalise> GetAnalisysProduct(int idProduto)
+        {
+            try
+            {
+                _conn.Open();
+
+                var returnList = new List<ProdutoAnalise>();
+
+                using (
+                    var myCommand = new SqlCommand(
+                        @"SELECT  [tblprodutosanalises].[Id] ,
+                                [tblprodutosanalises].[IdProduto] ,
+                                [tblprodutosanalises].[IdAnalise],
+                                [tblanalises].[Descricao]
+                        FROM    [dbo].[tblprodutosanalises]
+                                INNER JOIN dbo.[tblanalises] ON [tblanalises].[Id] = [tblprodutosanalises].IdAnalise
+                        WHERE [tblprodutosanalises].[IdProduto]=@IdProduto", _conn)
+                )
+                {
+                    var pIdProduto = new SqlParameter("@IdProduto", SqlDbType.Int) { Value = idProduto };
+                    myCommand.Parameters.Add(pIdProduto);
+
+                    var myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        returnList.Add(new ProdutoAnalise(Convert.ToInt32(myReader["IdProduto"]))
+                        {
+                            Id = Convert.ToInt32(myReader["Id"]),
+                            IdAnalise = Convert.ToInt32(myReader["IdAnalise"]),
+                            DescricaoAnalise = myReader["Descricao"].ToString()
+                        });
+                    }
+                }
+
+                return returnList;
+            }
+            catch (Exception ex)
+            {
+                _conn.Close();
+            }
+            finally
+            {
+                _conn.Close();
+            }
+            return null;
+        }
+
+        public DevDiveReturn SaveProcessProduct(int idProdutoComposto, BindingList<ProdutoProcesso> produtosProcessos)
         {
             _conn.Open();
             var tran = _conn.BeginTransaction();
@@ -191,7 +240,7 @@ namespace DevDive.Register.Produtos
 
                 var pDescricao = new SqlParameter("@IdProduto", SqlDbType.Int)
                 {
-                    Value = IdProdutoComposto
+                    Value = idProdutoComposto
                 };
 
                 myCommand.Parameters.Add(pDescricao);
@@ -241,6 +290,74 @@ namespace DevDive.Register.Produtos
                     myCommand.Parameters.Add(pOrdem);
                     myCommand.Parameters.Add(pTempo);
                     myCommand.Parameters.Add(pQuantidade);
+
+                    myCommand.ExecuteNonQuery();
+                }
+
+
+                tran.Commit();
+
+
+                return new DevDiveReturn {Message = "Processos salvos com sucesso!"};
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+
+                return new DevDiveReturn
+                {
+                    Errors = new List<string> {ex.Message + "\r\n" + ex.InnerException},
+                    Message = "Falha ao salvar processo!"
+                };
+            }
+            finally
+            {
+                _conn?.Close();
+            }
+        }
+
+        public DevDiveReturn SaveAnalisysProduct(int idProdutoComposto, BindingList<ProdutoAnalise> produtoAnalise)
+        {
+            _conn.Open();
+            var tran = _conn.BeginTransaction();
+            try
+            {
+                var myCommand =
+                    new SqlCommand(
+                        @"DELETE FROM dbo.[tblprodutosanalises] WHERE [tblprodutosanalises].IdProduto=@IdProduto", _conn,
+                        tran);
+
+                var pDescricao = new SqlParameter("@IdProduto", SqlDbType.Int)
+                {
+                    Value = idProdutoComposto
+                };
+
+                myCommand.Parameters.Add(pDescricao);
+
+                myCommand.ExecuteNonQuery();
+
+                foreach (var item in produtoAnalise)
+                {
+                    myCommand =
+                        new SqlCommand(@"INSERT  INTO dbo.[tblprodutosanalises]
+                                                ( IdProduto ,
+                                                  [IdAnalise] 
+                                                )
+                                        VALUES  ( @IdProduto , -- IdProduto - int
+                                                  @IdAnalise  -- IdProcesso - int
+                                                )", _conn, tran);
+
+                    pDescricao = new SqlParameter("@IdProduto", SqlDbType.Int)
+                    {
+                        Value = item.IdProduto
+                    };
+                    var pIdAnalise = new SqlParameter("@IdAnalise", SqlDbType.Int)
+                    {
+                        Value = item.IdAnalise
+                    };
+
+                    myCommand.Parameters.Add(pDescricao);
+                    myCommand.Parameters.Add(pIdAnalise);
 
                     myCommand.ExecuteNonQuery();
                 }

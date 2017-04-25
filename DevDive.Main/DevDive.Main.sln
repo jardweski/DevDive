@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Main", "DevDive.Main\DevDive.Main.csproj", "{3B82EB66-5141-4D4F-8851-5A95E35E36B5}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Production", "..\DevDive.Production\DevDive.Production.csproj", "{70B1F669-C28B-4077-850C-7F41D100D313}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDive.Common", "..\DevDive.Common\DevDive.Common.csproj", "{3485CCC9-30C4-4E07-BF7B-D227D08F9020}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F067BB9E-9967-4D30-936E-578A8E65CEAD}"
+	ProjectSection(SolutionItems) = preProject
+		IpExterno.txt = IpExterno.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,23 +104,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://jardweski.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = DevDive.Main\\DevDive.Main.csproj
-		SccProjectName1 = DevDive.Main
-		SccLocalPath1 = DevDive.Main
-		SccProjectUniqueName2 = ..\\DevDive.Register\\DevDive.Register.csproj
-		SccProjectName2 = ../DevDive.Register
-		SccLocalPath2 = ..\\DevDive.Register
-		SccProjectUniqueName3 = ..\\DevDive.Production\\DevDive.Production.csproj
-		SccProjectName3 = ../DevDive.Production
-		SccLocalPath3 = ..\\DevDive.Production
-		SccProjectUniqueName4 = ..\\DevDive.Common\\DevDive.Common.csproj
-		SccProjectName4 = ../DevDive.Common
-		SccLocalPath4 = ..\\DevDive.Common
 	EndGlobalSection
 EndGlobal

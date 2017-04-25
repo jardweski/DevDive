@@ -1,41 +1,43 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Globalization;
 using System.Windows.Forms;
 
-namespace DevDive.Register.Processos
+namespace DevDive.Register.Analises
 {
-    public partial class FormProcessos : Form
+    public partial class FormAnalises : Form
     {
-        private readonly ControleProcesso _controle;
-        private Processo _processo;
+        private readonly ControleAnalise _controle;
+        private Analise _analise;
 
 
-        public FormProcessos(SqlConnection getData)
+        public FormAnalises(SqlConnection getData)
         {
             InitializeComponent();
 
-            _processo = new Processo();
+            _analise = new Analise();
 
-            _controle = new ControleProcesso(getData);
+            _controle = new ControleAnalise(getData);
         }
 
 
-        private void FormProcessos_Load(object sender, EventArgs e)
+        private void FormAnalises_Load(object sender, EventArgs e)
         {
             CarregarGrid();
+
+            foreach (var item in Enum.GetValues(typeof(EMetodoAnalise)))
+                comboBox1.Items.Add(item);
         }
 
         private void CarregarGrid()
         {
-            processosDataGridView.DataSource = null;
-            processosDataGridView.DataSource = _controle.GetList();
+            AnalisesDataGridView.DataSource = null;
+            AnalisesDataGridView.DataSource = _controle.GetList();
         }
 
-        private void processosDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void AnalisesDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (processosDataGridView.CurrentRow != null)
-                _processo = (Processo) processosDataGridView.CurrentRow.DataBoundItem;
+            if (AnalisesDataGridView.CurrentRow != null)
+                _analise = (Analise) AnalisesDataGridView.CurrentRow.DataBoundItem;
             CarregarGrid();
             CarregarProcesso();
         }
@@ -43,12 +45,15 @@ namespace DevDive.Register.Processos
         private void CarregarProcesso()
         {
             Limpar();
-            if (_processo != null)
+            if (_analise != null)
             {
-                if (processosDataGridView.CurrentRow != null)
-                    _processo = (Processo) processosDataGridView.CurrentRow.DataBoundItem;
-                descricaoTextBox.Text = _processo.Descricao;
-                custoTextBox.Text = _processo.Custo.ToString(CultureInfo.CurrentCulture);
+                if (AnalisesDataGridView.CurrentRow != null)
+                    _analise = (Analise) AnalisesDataGridView.CurrentRow.DataBoundItem;
+                descricaoTextBox.Text = _analise.Descricao;
+                especificacaoTextBox.Text = _analise.Especificacao;
+                radioButton1.Checked = _analise.Tipo == ETipoAnalise.FisicoQuimica;
+                radioButton2.Checked = _analise.Tipo == ETipoAnalise.Microbiologica;
+                comboBox1.SelectedIndex = (int) _analise.Metodo;
             }
         }
 
@@ -59,24 +64,31 @@ namespace DevDive.Register.Processos
 
         private void Salvar()
         {
-            _processo.Descricao = descricaoTextBox.Text;
-            _processo.Custo = Convert.ToDecimal(custoTextBox.Text==""?"0":custoTextBox.Text);
-            _controle.Save(_processo);
+            _analise.Descricao = descricaoTextBox.Text;
+            _analise.Especificacao = especificacaoTextBox.Text;
+            _analise.Metodo = (EMetodoAnalise) comboBox1.SelectedIndex;
+            _analise.Tipo = radioButton1.Checked ? ETipoAnalise.FisicoQuimica : ETipoAnalise.Microbiologica;
+
+            if (!radioButton1.Checked && !radioButton2.Checked)
+                return;
+
+            if (comboBox1.SelectedIndex == -1)
+                return;
+
+            _controle.Save(_analise);
             CarregarGrid();
         }
 
         private void excluirButton_Click(object sender, EventArgs e)
         {
-            if (_processo.Id == null)
-                if (processosDataGridView.CurrentRow != null)
-                    _processo = (Processo) processosDataGridView.CurrentRow.DataBoundItem;
+            if (_analise.Id == null)
+                if (AnalisesDataGridView.CurrentRow != null)
+                    _analise = (Analise) AnalisesDataGridView.CurrentRow.DataBoundItem;
 
             if (
-                MessageBox.Show("Deseja excluir o processo?", "Exclusão de processo", MessageBoxButtons.YesNo,
+                MessageBox.Show(@"Deseja excluir a análise?", @"Exclusão de análise", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                _controle.Delete(_processo);
-            }
+                _controle.Delete(_analise);
 
             CarregarGrid();
             CarregarProcesso();
@@ -89,19 +101,13 @@ namespace DevDive.Register.Processos
 
         private void Limpar()
         {
-            _processo = new Processo();
+            _analise = new Analise();
             descricaoTextBox.Text = "";
-            custoTextBox.Text = "";
+            especificacaoTextBox.Text = "";
         }
 
         private void custoTextBox_Validated(object sender, EventArgs e)
         {
-            decimal resultado;
-            if (!decimal.TryParse(custoTextBox.Text, out resultado))
-            {
-                MessageBox.Show("Informe valores numéricos");
-                custoTextBox.Text = "";
-            }
         }
     }
 }

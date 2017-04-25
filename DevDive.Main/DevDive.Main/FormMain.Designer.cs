@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.analToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vinculoDeProcessosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,8 +39,7 @@
             this.monitorarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acompanharPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.analToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vinculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +55,22 @@
             this.menuStrip1.Size = new System.Drawing.Size(579, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // analToolStripMenuItem
+            // 
+            this.analToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cadastroToolStripMenuItem,
+            this.vinculoToolStripMenuItem});
+            this.analToolStripMenuItem.Name = "analToolStripMenuItem";
+            this.analToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.analToolStripMenuItem.Text = "Análises";
+            // 
+            // cadastroToolStripMenuItem
+            // 
+            this.cadastroToolStripMenuItem.Name = "cadastroToolStripMenuItem";
+            this.cadastroToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cadastroToolStripMenuItem.Text = "Cadastro";
+            this.cadastroToolStripMenuItem.Click += new System.EventHandler(this.cadastroToolStripMenuItem_Click);
             // 
             // cadastrosToolStripMenuItem
             // 
@@ -109,19 +126,12 @@
             this.configuraçõesToolStripMenuItem.Text = "Configurações";
             this.configuraçõesToolStripMenuItem.Click += new System.EventHandler(this.configuraçõesToolStripMenuItem_Click);
             // 
-            // analToolStripMenuItem
+            // vinculoToolStripMenuItem
             // 
-            this.analToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastroToolStripMenuItem});
-            this.analToolStripMenuItem.Name = "analToolStripMenuItem";
-            this.analToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.analToolStripMenuItem.Text = "Análises";
-            // 
-            // cadastroToolStripMenuItem
-            // 
-            this.cadastroToolStripMenuItem.Name = "cadastroToolStripMenuItem";
-            this.cadastroToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cadastroToolStripMenuItem.Text = "Cadastro";
+            this.vinculoToolStripMenuItem.Name = "vinculoToolStripMenuItem";
+            this.vinculoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vinculoToolStripMenuItem.Text = "Vinculo";
+            this.vinculoToolStripMenuItem.Click += new System.EventHandler(this.vinculoToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -156,6 +166,7 @@
         private System.Windows.Forms.ToolStripMenuItem acompanharPedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem analToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vinculoToolStripMenuItem;
     }
 }
 

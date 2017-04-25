@@ -1,11 +1,12 @@
 ﻿namespace DevDive.Register
 {
-    public enum ETipoProdutoProcesso
+    public enum ETipoFormatGrid
     {
         ProdutoProcesso,
         Processo,
-
         Composicao,
-        ProdutoComposto
+        ProdutoComposto,
+        Analise,
+        ProdutoAnalise
     }
 }

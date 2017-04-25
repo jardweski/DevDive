@@ -48,5 +48,15 @@ namespace DevDive.Main
         {
 
         }
+
+        private void cadastroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DevControl.OpenForm(EFormType.Analisys);
+        }
+
+        private void vinculoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DevControl.OpenForm(EFormType.ProductAnalisys);
+        }
     }
 }

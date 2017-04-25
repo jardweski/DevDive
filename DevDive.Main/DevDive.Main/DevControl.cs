@@ -1,7 +1,9 @@
 ﻿using System.Configuration;
 using System.Data.SqlClient;
 using DevDive.Production;
+using DevDive.Register.Analises;
 using DevDive.Register.Processos;
+using DevDive.Register.ProdutosAnalises;
 using DevDive.Register.ProdutosProcessos;
 
 namespace DevDive.Main
@@ -22,8 +24,9 @@ namespace DevDive.Main
         {
             return
                 new SqlConnection(@"Server=" +
-                                  ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-                                      .AppSettings.Settings["Servidor"].Value +
+                                  //ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
+                                  //    .AppSettings.Settings["Servidor"].Value +
+                                  "177.92.18.210" +
                                   ";Database=igd;User Id=sa;Password = Plx7fhsd89; ");
         }
 
@@ -46,6 +49,14 @@ namespace DevDive.Main
                 case EFormType.OrdersMonitor:
                     var formOrdersMonitor = new FormManagerOrders(GetData(), GetIgdData());
                     formOrdersMonitor.Show();
+                    break;
+                case EFormType.Analisys:
+                    var formAnalisys = new FormAnalises(GetData());
+                    formAnalisys.Show();
+                    break;
+                case EFormType.ProductAnalisys:
+                    var formProductAnalisys = new FormProdutoAnalises(GetData(), GetIgdData());
+                    formProductAnalisys.Show();
                     break;
             }
         }

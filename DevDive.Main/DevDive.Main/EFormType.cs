@@ -5,6 +5,8 @@
         Process,
         ProductProcess,
         ProcessMonitor,
-        OrdersMonitor
+        OrdersMonitor,
+        Analisys,
+        ProductAnalisys
     }
 }

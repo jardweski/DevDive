@@ -58,8 +58,12 @@
     <Compile Include="Analises\FormAnalises.Designer.cs">
       <DependentUpon>FormAnalises.cs</DependentUpon>
     </Compile>
+    <Compile Include="Analises\Analise.cs" />
+    <Compile Include="ETipoAnalise.cs" />
     <Compile Include="EFormType.cs" />
-    <Compile Include="ETipoProdutoProcesso.cs" />
+    <Compile Include="EMetodoAnalise.cs" />
+    <Compile Include="ETipoFormatGrid.cs" />
+    <Compile Include="Analises\ControleAnalise.cs" />
     <Compile Include="Processos\ControleProcesso.cs" />
     <Compile Include="Processos\FormProcessos.cs">
       <SubType>Form</SubType>
@@ -68,6 +72,13 @@
       <DependentUpon>FormProcessos.cs</DependentUpon>
     </Compile>
     <Compile Include="Processos\Processo.cs" />
+    <Compile Include="ProdutosAnalises\FormProdutoAnalises.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProdutosAnalises\FormProdutoAnalises.Designer.cs">
+      <DependentUpon>FormProdutoAnalises.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutosAnalises\ProdutoAnalise.cs" />
     <Compile Include="ProdutosProcessos\FormProdutoProcessos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Processos\FormProcessos.resx">
       <DependentUpon>FormProcessos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProdutosAnalises\FormProdutoAnalises.resx">
+      <DependentUpon>FormProdutoAnalises.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProdutosProcessos\FormProdutoProcessos.resx">
       <DependentUpon>FormProdutoProcessos.cs</DependentUpon>

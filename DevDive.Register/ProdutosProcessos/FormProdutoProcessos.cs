@@ -33,18 +33,18 @@ namespace DevDive.Register.ProdutosProcessos
         {
             _processos = _processoControl.GetList();
 
-            FormatarGrid(processosDataGridView, ETipoProdutoProcesso.Processo, _processos);
+            FormatarGrid(processosDataGridView, ETipoFormatGrid.Processo, _processos);
         }
 
         private void CarregarProdutosCompostos()
         {
-            FormatarGrid(produtosCompostosDataGridView, ETipoProdutoProcesso.ProdutoComposto,
+            FormatarGrid(produtosCompostosDataGridView, ETipoFormatGrid.ProdutoComposto,
                 new BindingList<ProdutoComposicao>(_produtoControl.GetListProductCompound().ToList()));
         }
 
         private void CarregarComposicaoProduto(ProdutoComposicao produtoComposicao)
         {
-            FormatarGrid(composicaoDataGridView, ETipoProdutoProcesso.Composicao,
+            FormatarGrid(composicaoDataGridView, ETipoFormatGrid.Composicao,
                 new BindingList<ProdutoComposto>(_produtoControl.GetListCompound(produtoComposicao.Id).ToList()));
 
             codigoTextBox.Text = produtoComposicao.Codigo;
@@ -208,24 +208,24 @@ namespace DevDive.Register.ProdutosProcessos
 
         private void CarregarProdutoProcesso()
         {
-            FormatarGrid(produtoProcessoDataGridView, ETipoProdutoProcesso.ProdutoProcesso,
+            FormatarGrid(produtoProcessoDataGridView, ETipoFormatGrid.ProdutoProcesso,
                 new BindingList<ProdutoProcesso>(_produtosProcessos.OrderBy(p => p.Ordem).ToList()));
         }
 
-        private void FormatarGrid<T>(DataGridView dataGridView, ETipoProdutoProcesso tipo, BindingList<T> dataSource)
+        private void FormatarGrid<T>(DataGridView dataGridView, ETipoFormatGrid tipo, BindingList<T> dataSource)
         {
             switch (tipo)
             {
-                case ETipoProdutoProcesso.ProdutoProcesso:
+                case ETipoFormatGrid.ProdutoProcesso:
                     produtoProcessoDataGridView.DataSource = dataSource;
                     break;
-                case ETipoProdutoProcesso.Processo:
+                case ETipoFormatGrid.Processo:
                     processosDataGridView.DataSource = dataSource;
                     break;
-                case ETipoProdutoProcesso.Composicao:
+                case ETipoFormatGrid.Composicao:
                     composicaoDataGridView.DataSource = dataSource;
                     break;
-                case ETipoProdutoProcesso.ProdutoComposto:
+                case ETipoFormatGrid.ProdutoComposto:
                     produtosCompostosDataGridView.DataSource = dataSource;
                     break;
             }
