@@ -7,6 +7,7 @@
         ProcessMonitor,
         OrdersMonitor,
         Analisys,
-        ProductAnalisys
+        ProductAnalisys,
+        ProductSeriesData
     }
 }

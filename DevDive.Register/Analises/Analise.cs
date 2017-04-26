@@ -12,6 +12,6 @@
 
         public EMetodoAnalise Metodo { get; set; }
 
-
+        public decimal Resultado { get; set; }
     }
 }

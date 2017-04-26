@@ -32,6 +32,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.analToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vinculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.certificadoDeAnáliseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dadosDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.impressãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vinculoDeProcessosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,7 +43,6 @@
             this.monitorarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acompanharPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vinculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +50,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.analToolStripMenuItem,
+            this.certificadoDeAnáliseToolStripMenuItem,
             this.cadastrosToolStripMenuItem,
             this.produçãoToolStripMenuItem,
             this.configuraçõesToolStripMenuItem});
@@ -68,9 +72,38 @@
             // cadastroToolStripMenuItem
             // 
             this.cadastroToolStripMenuItem.Name = "cadastroToolStripMenuItem";
-            this.cadastroToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cadastroToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.cadastroToolStripMenuItem.Text = "Cadastro";
             this.cadastroToolStripMenuItem.Click += new System.EventHandler(this.cadastroToolStripMenuItem_Click);
+            // 
+            // vinculoToolStripMenuItem
+            // 
+            this.vinculoToolStripMenuItem.Name = "vinculoToolStripMenuItem";
+            this.vinculoToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.vinculoToolStripMenuItem.Text = "Vinculo";
+            this.vinculoToolStripMenuItem.Click += new System.EventHandler(this.vinculoToolStripMenuItem_Click);
+            // 
+            // certificadoDeAnáliseToolStripMenuItem
+            // 
+            this.certificadoDeAnáliseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dadosDeProdutosToolStripMenuItem,
+            this.impressãoToolStripMenuItem});
+            this.certificadoDeAnáliseToolStripMenuItem.Name = "certificadoDeAnáliseToolStripMenuItem";
+            this.certificadoDeAnáliseToolStripMenuItem.Size = new System.Drawing.Size(134, 20);
+            this.certificadoDeAnáliseToolStripMenuItem.Text = "Certificado de Análise";
+            // 
+            // dadosDeProdutosToolStripMenuItem
+            // 
+            this.dadosDeProdutosToolStripMenuItem.Name = "dadosDeProdutosToolStripMenuItem";
+            this.dadosDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.dadosDeProdutosToolStripMenuItem.Text = "Dados de produtos";
+            this.dadosDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.dadosDeProdutosToolStripMenuItem_Click);
+            // 
+            // impressãoToolStripMenuItem
+            // 
+            this.impressãoToolStripMenuItem.Name = "impressãoToolStripMenuItem";
+            this.impressãoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.impressãoToolStripMenuItem.Text = "Impressão";
             // 
             // cadastrosToolStripMenuItem
             // 
@@ -84,14 +117,14 @@
             // processosToolStripMenuItem
             // 
             this.processosToolStripMenuItem.Name = "processosToolStripMenuItem";
-            this.processosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.processosToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.processosToolStripMenuItem.Text = "Cadastro";
             this.processosToolStripMenuItem.Click += new System.EventHandler(this.processosToolStripMenuItem_Click);
             // 
             // vinculoDeProcessosToolStripMenuItem
             // 
             this.vinculoDeProcessosToolStripMenuItem.Name = "vinculoDeProcessosToolStripMenuItem";
-            this.vinculoDeProcessosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.vinculoDeProcessosToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.vinculoDeProcessosToolStripMenuItem.Text = "Vinculo";
             this.vinculoDeProcessosToolStripMenuItem.Click += new System.EventHandler(this.vinculoDeProcessosToolStripMenuItem_Click);
             // 
@@ -125,13 +158,6 @@
             this.configuraçõesToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.configuraçõesToolStripMenuItem.Text = "Configurações";
             this.configuraçõesToolStripMenuItem.Click += new System.EventHandler(this.configuraçõesToolStripMenuItem_Click);
-            // 
-            // vinculoToolStripMenuItem
-            // 
-            this.vinculoToolStripMenuItem.Name = "vinculoToolStripMenuItem";
-            this.vinculoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.vinculoToolStripMenuItem.Text = "Vinculo";
-            this.vinculoToolStripMenuItem.Click += new System.EventHandler(this.vinculoToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -167,6 +193,9 @@
         private System.Windows.Forms.ToolStripMenuItem analToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vinculoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem certificadoDeAnáliseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dadosDeProdutosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem impressãoToolStripMenuItem;
     }
 }
 

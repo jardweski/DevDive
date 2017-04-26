@@ -59,6 +59,20 @@
       <DependentUpon>FormAnalises.cs</DependentUpon>
     </Compile>
     <Compile Include="Analises\Analise.cs" />
+    <Compile Include="Certificado\DadosDeProdutos\FormProdutoCertificado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Certificado\DadosDeProdutos\FormProdutoCertificado.Designer.cs">
+      <DependentUpon>FormProdutoCertificado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Certificado\DadosDeProdutos\Serie.cs" />
+    <Compile Include="Certificado\DadosDeProdutos\SerieCertificado.cs" />
+    <Compile Include="Certificado\Impressao\FormCertificadoImpressao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Certificado\Impressao\FormCertificadoImpressao.Designer.cs">
+      <DependentUpon>FormCertificadoImpressao.cs</DependentUpon>
+    </Compile>
     <Compile Include="ETipoAnalise.cs" />
     <Compile Include="EFormType.cs" />
     <Compile Include="EMetodoAnalise.cs" />
@@ -93,6 +107,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Analises\FormAnalises.resx">
       <DependentUpon>FormAnalises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Certificado\DadosDeProdutos\FormProdutoCertificado.resx">
+      <DependentUpon>FormProdutoCertificado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Certificado\Impressao\FormCertificadoImpressao.resx">
+      <DependentUpon>FormCertificadoImpressao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Processos\FormProcessos.resx">
       <DependentUpon>FormProcessos.cs</DependentUpon>

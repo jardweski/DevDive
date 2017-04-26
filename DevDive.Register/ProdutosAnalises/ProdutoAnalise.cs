@@ -14,6 +14,12 @@
         public int IdAnalise { get; set; }
 
         public string DescricaoAnalise { get; set; }
-        
+
+        public ETipoAnalise Tipo { get; set; }
+
+        public string Especificacao { get; set; }
+
+        public EMetodoAnalise Metodo { get; set; }
+
     }
 }

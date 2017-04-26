@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
@@ -57,6 +58,8 @@ namespace DevDive.Register.ProdutosAnalises
                     (ProdutoComposicao) produtosCompostosDataGridView.Rows[e.RowIndex].DataBoundItem;
                 if (produtoComposicao != null)
                     ObterProdutoAnalise(produtoComposicao.Id);
+
+                RecarregarGrids();
             }
         }
 
@@ -64,19 +67,23 @@ namespace DevDive.Register.ProdutosAnalises
         {
             var analisesProdutos = _produtoControl.GetAnalisysProduct(idProdutoComposto);
 
-            if (analisesProdutos != null && analisesProdutos.Any())
-                foreach (var AnalisesProduto in analisesProdutos)
-                foreach (DataGridViewRow dataGridViewRow in AnalisesDataGridView.Rows)
-                    if (((Analise) dataGridViewRow.DataBoundItem).Id == AnalisesProduto.IdAnalise)
-                        ValidaAdicionaAnalise(dataGridViewRow.Index, AnalisesProduto);
+            var produtoAnalises = analisesProdutos as IList<ProdutoAnalise> ?? analisesProdutos.ToList();
+
+            if (!produtoAnalises.Any())
+                return;
+
+            foreach (var analisesProduto in produtoAnalises)
+            foreach (DataGridViewRow dataGridViewRow in AnalisesDataGridView.Rows)
+                if (((Analise) dataGridViewRow.DataBoundItem).Id == analisesProduto.IdAnalise)
+                    ValidaAdicionaAnalise(dataGridViewRow.Index);
         }
 
         private void AnalisesDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            ValidaAdicionaAnalise(e.RowIndex, null);
+            ValidaAdicionaAnalise(e.RowIndex);
         }
 
-        private void ValidaAdicionaAnalise(int rowIndex, ProdutoAnalise AnalisesProduto)
+        private void ValidaAdicionaAnalise(int rowIndex)
         {
             if (rowIndex >= 0)
             {
@@ -92,18 +99,21 @@ namespace DevDive.Register.ProdutosAnalises
             }
         }
 
-        private void AdicionarAnaliseProduto(Analise Analise, int idProdutoComposto)
+        private void AdicionarAnaliseProduto(Analise analise, int idProdutoComposto)
         {
-            _produtosAnalises.Add(new ProdutoAnalise(idProdutoComposto)
-            {
-                IdAnalise = (int) Analise.Id,
-                DescricaoAnalise = Analise.Descricao
-            });
+            if (analise.Id != null)
+                _produtosAnalises.Add(new ProdutoAnalise(idProdutoComposto)
+                {
+                    IdAnalise = (int) analise.Id,
+                    DescricaoAnalise = analise.Descricao,
+                    Especificacao = analise.Especificacao,
+                    Tipo = analise.Tipo,
+                    Metodo = analise.Metodo
+                });
 
-            _analises.Remove(Analise);
+            _analises.Remove(analise);
 
             CarregarProdutoAnalise();
-            RecarregarGrids();
         }
 
         private void RecarregarGrids()
@@ -115,7 +125,7 @@ namespace DevDive.Register.ProdutosAnalises
         private void button3_Click(object sender, EventArgs e)
         {
             if (AnalisesDataGridView.SelectedRows.Count > 0)
-                ValidaAdicionaAnalise(AnalisesDataGridView.SelectedRows[0].Index, null);
+                ValidaAdicionaAnalise(AnalisesDataGridView.SelectedRows[0].Index);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -167,9 +177,15 @@ namespace DevDive.Register.ProdutosAnalises
             {
                 case ETipoFormatGrid.ProdutoAnalise:
                     produtoAnaliseDataGridView.DataSource = dataSource;
+                    foreach (DataGridViewColumn coluna in produtoAnaliseDataGridView.Columns)
+                        if (coluna.Name.Contains("Id") || coluna.Name.Contains("Resultado"))
+                            coluna.Visible = false;
                     break;
                 case ETipoFormatGrid.Analise:
                     AnalisesDataGridView.DataSource = dataSource;
+                    foreach (DataGridViewColumn coluna in AnalisesDataGridView.Columns)
+                        if (coluna.Name.Contains("Id"))
+                            coluna.Visible = false;
                     break;
                 case ETipoFormatGrid.ProdutoComposto:
                     produtosCompostosDataGridView.DataSource = dataSource;
@@ -201,6 +217,16 @@ namespace DevDive.Register.ProdutosAnalises
             else
                 foreach (var error in retorno.Errors)
                     MessageBox.Show(error);
+        }
+
+        private void FormProdutoAnalises_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SSS(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

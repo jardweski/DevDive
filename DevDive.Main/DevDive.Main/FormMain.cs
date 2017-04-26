@@ -58,5 +58,10 @@ namespace DevDive.Main
         {
             DevControl.OpenForm(EFormType.ProductAnalisys);
         }
+
+        private void dadosDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DevControl.OpenForm(EFormType.ProductSeriesData);
+        }
     }
 }

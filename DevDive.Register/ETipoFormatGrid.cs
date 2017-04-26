@@ -7,6 +7,7 @@
         Composicao,
         ProdutoComposto,
         Analise,
-        ProdutoAnalise
+        ProdutoAnalise,
+        ProdutosSerie
     }
 }
