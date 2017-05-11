@@ -67,15 +67,18 @@ namespace DevDive.Register.ProdutosAnalises
         {
             var analisesProdutos = _produtoControl.GetAnalisysProduct(idProdutoComposto);
 
-            var produtoAnalises = analisesProdutos as IList<ProdutoAnalise> ?? analisesProdutos.ToList();
+            if (analisesProdutos != null)
+            {
+                var produtoAnalises = analisesProdutos as IList<ProdutoAnalise> ?? analisesProdutos.ToList();
 
-            if (!produtoAnalises.Any())
-                return;
+                if (!produtoAnalises.Any())
+                    return;
 
-            foreach (var analisesProduto in produtoAnalises)
-            foreach (DataGridViewRow dataGridViewRow in AnalisesDataGridView.Rows)
-                if (((Analise) dataGridViewRow.DataBoundItem).Id == analisesProduto.IdAnalise)
-                    ValidaAdicionaAnalise(dataGridViewRow.Index);
+                foreach (var analisesProduto in produtoAnalises)
+                foreach (DataGridViewRow dataGridViewRow in AnalisesDataGridView.Rows)
+                    if (((Analise) dataGridViewRow.DataBoundItem).Id == analisesProduto.IdAnalise)
+                        ValidaAdicionaAnalise(dataGridViewRow.Index);
+            }
         }
 
         private void AnalisesDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -113,7 +116,7 @@ namespace DevDive.Register.ProdutosAnalises
 
             _analises.Remove(analise);
 
-            CarregarProdutoAnalise();
+            RecarregarGrids();
         }
 
         private void RecarregarGrids()

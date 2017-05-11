@@ -24,7 +24,7 @@ namespace DevDive.Register.Analises
             {
                 if (analise.Id == null)
                 {
-                    var myCommand = new SqlCommand(@"INSERT INTO tblAnalises (Descricao ,
+                    var myCommand = new SqlCommand(@"INSERT INTO tblanalises (Descricao ,
                                                                               Tipo ,
                                                                               Especificacao ,
                                                                               Metodo) 
@@ -50,7 +50,7 @@ namespace DevDive.Register.Analises
                 else
                 {
                     var myCommand =
-                        new SqlCommand(@"UPDATE tblAnalises SET Descricao=@Descricao, 
+                        new SqlCommand(@"UPDATE tblanalises SET Descricao=@Descricao, 
                                                                 Tipo=@Tipo,
                                                                 Especificacao=@Especificacao,
                                                                 Metodo=@Metodo

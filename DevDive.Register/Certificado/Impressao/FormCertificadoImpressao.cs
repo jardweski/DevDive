@@ -70,8 +70,8 @@ namespace DevDive.Register.Certificado.Impressao
                 return;
             var serie =
                 (Serie) seriesDataGridView.Rows[e.RowIndex].DataBoundItem;
-            if (serie != null)
-                CarregarAnalises(_analiseControl.GetAnalisys(serie.Id));
+            //if (serie != null)
+                //CarregarAnalises(_analiseControl.GetAnalisys(serie.Id));
         }
 
         private void CarregarAnalises()
@@ -95,28 +95,8 @@ namespace DevDive.Register.Certificado.Impressao
 
         private SerieCertificado RepassarValores(int serieId)
         {
-            var serieCertificado = new SerieCertificado
-            {
-                Code = CodetextBox.Text,
-                Batch = batchtextBox.Text,
-                BotanicalSource = botanicaltextBox.Text,
-                Family = familytextBox.Text,
-                Origin = origintextBox.Text,
-                HarvestRegion = harvesttextBox.Text,
-                UsedPart = userdparttextBox.Text,
-                Preservative = preservativetextBox.Text,
-                Colorant = coloranttextBox.Text,
-                Solvent = solventtextBox.Text,
-                Carrier = carriertextBox.Text,
-                DryResidue = drytextBox.Text,
-                Ratio = ratiotextBox.Text,
-                Irradiation = irradiationtextBox.Text,
-                GMO = gmotextBox.Text,
-                BSE = bsetextBox.Text,
-                IdSerie = serieId
-            };
 
-            return serieCertificado;
+            return new SerieCertificado();
         }
     }
 }
