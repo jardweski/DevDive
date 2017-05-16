@@ -24,47 +24,47 @@ namespace DevDive.Register.Produtos
 
         public IEnumerable<ProdutoComposicao> GetListProductCompound()
         {
-            try
+        try
+        {
+            _connIgd.Open();
+
+            var returnList = new List<ProdutoComposicao>();
+
+            using (
+                var myCommand = new SqlCommand(
+                    @"SELECT  tblprodutos.Id ,
+                            tblprodutos.Codigo ,
+                            tblprodutos.Descricao
+                    FROM    tblprodutos
+                            INNER JOIN tblprodutoscomposicaomp ON tblprodutoscomposicaomp.IdProduto = tblprodutos.Id
+                    GROUP BY tblprodutos.Id ,
+                            tblprodutos.Codigo ,
+                            tblprodutos.Descricao
+                    ORDER BY tblprodutos.Descricao", _connIgd)
+            )
             {
-                _connIgd.Open();
+                var myReader = myCommand.ExecuteReader();
 
-                var returnList = new List<ProdutoComposicao>();
-
-                using (
-                    var myCommand = new SqlCommand(
-                        @"SELECT  tblprodutos.Id ,
-                                tblprodutos.Codigo ,
-                                tblprodutos.Descricao
-                        FROM    tblprodutos
-                                INNER JOIN tblprodutoscomposicaomp ON tblprodutoscomposicaomp.IdProduto = tblprodutos.Id
-                        GROUP BY tblprodutos.Id ,
-                                tblprodutos.Codigo ,
-                                tblprodutos.Descricao
-                        ORDER BY tblprodutos.Descricao", _connIgd)
-                )
-                {
-                    var myReader = myCommand.ExecuteReader();
-
-                    while (myReader.Read())
-                        returnList.Add(new ProdutoComposicao
-                        {
-                            Id = Convert.ToInt32(myReader["Id"]),
-                            Codigo = myReader["Codigo"].ToString(),
-                            Descricao = myReader["Descricao"].ToString()
-                        });
-                }
-
-                return returnList;
+                while (myReader.Read())
+                    returnList.Add(new ProdutoComposicao
+                    {
+                        Id = Convert.ToInt32(myReader["Id"]),
+                        Codigo = myReader["Codigo"].ToString(),
+                        Descricao = myReader["Descricao"].ToString()
+                    });
             }
-            catch (Exception ex)
-            {
-                _connIgd.Close();
-            }
-            finally
-            {
-                _connIgd.Close();
-            }
-            return null;
+
+            return returnList;
+        }
+        catch (Exception ex)
+        {
+            _connIgd.Close();
+        }
+        finally
+        {
+            _connIgd.Close();
+        }
+        return null;
         }
 
         public IEnumerable<ProdutoComposto> GetListCompound(int idProduto)
@@ -445,7 +445,7 @@ namespace DevDive.Register.Produtos
                         returnList.Add(new Serie
                         {
                             Id = Convert.ToInt32(myReader["Id"]),
-                            Data = Convert.ToDateTime(myReader["Data"]),
+                            Data = myReader["Data"]==DBNull.Value?DateTime.Now.Date : Convert.ToDateTime(myReader["Data"]),
                             Descricao = myReader["Serie"].ToString(),
                             Estoque = Convert.ToDecimal(myReader["Estoque"])
                         });

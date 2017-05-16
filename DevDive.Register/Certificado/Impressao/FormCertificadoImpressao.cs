@@ -11,7 +11,7 @@ namespace DevDive.Register.Certificado.Impressao
 {
     public partial class FormCertificadoImpressao : Form
     {
-        private readonly ProdutoControle _produtoControl;
+        private readonly CertificadoControle _certificadoControle;
         private BindingList<Serie> _series;
         private ControleAnalise _analiseControl;
 
@@ -19,22 +19,22 @@ namespace DevDive.Register.Certificado.Impressao
         {
             InitializeComponent();
 
-            _produtoControl = new ProdutoControle(getData, getIgdData);
+            _certificadoControle = new CertificadoControle(getData, getIgdData);
             _analiseControl = new ControleAnalise(getData);
-            CarregarProdutos();
+            CarregarProdutosPedidos();
         }
 
-        private void CarregarProdutos()
+        private void CarregarProdutosPedidos()
         {
-            FormatarGrid(produtosDataGridView, ETipoFormatGrid.ProdutoComposto,
-                new BindingList<ProdutoComposicao>(_produtoControl.GetListProductCompound().ToList()));
+            FormatarGrid(produtosDataGridView, ETipoFormatGrid.ProdutoPedido,
+                new BindingList<ProdutosPedido>(_certificadoControle.GetProdutosPedidos().ToList()));
         }
 
         private void FormatarGrid<T>(DataGridView dataGridView, ETipoFormatGrid tipo, BindingList<T> dataSource)
         {
             switch (tipo)
             {
-                case ETipoFormatGrid.ProdutoComposto:
+                case ETipoFormatGrid.ProdutoPedido:
                     produtosDataGridView.DataSource = dataSource;
                     break;
                 case ETipoFormatGrid.ProdutosSerie:
@@ -56,10 +56,10 @@ namespace DevDive.Register.Certificado.Impressao
             if (e.RowIndex < 0)
                 return;
 
-            var produto =
-                (ProdutoComposicao) produtosDataGridView.Rows[e.RowIndex].DataBoundItem;
-            if (produto != null)
-                _series = _produtoControl.GetSeriesProduct(produto.Id);
+            //var produto =
+            //    (ProdutoComposicao) produtosDataGridView.Rows[e.RowIndex].DataBoundItem;
+            //if (produto != null)
+            //    _series = _certificadoControle.GetSeriesProduct(produto.Id);
 
             FormatarGrid(seriesDataGridView, ETipoFormatGrid.ProdutosSerie, _series);
         }
@@ -90,7 +90,7 @@ namespace DevDive.Register.Certificado.Impressao
                 return;
             var serie =
                 (Serie) seriesDataGridView.CurrentRow.DataBoundItem;
-            _produtoControl.SaveProductSerieCertificate(RepassarValores(serie.Id));
+            //_certificadoControle.SaveProductSerieCertificate(RepassarValores(serie.Id));
         }
 
         private SerieCertificado RepassarValores(int serieId)

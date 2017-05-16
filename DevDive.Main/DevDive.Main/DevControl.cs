@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using DevDive.Production;
 using DevDive.Register.Analises;
 using DevDive.Register.Certificado.DadosDeProdutos;
+using DevDive.Register.Certificado.Impressao;
 using DevDive.Register.Processos;
 using DevDive.Register.ProdutosAnalises;
 using DevDive.Register.ProdutosProcessos;
@@ -62,6 +63,10 @@ namespace DevDive.Main
                 case EFormType.ProductSeriesData:
                     var formProductSeriesData = new FormProdutoCertificado(GetData(), GetIgdData());
                     formProductSeriesData.Show();
+                    break;
+                    case EFormType.CertifiedResult:
+                    var formCertifiedResult = new FormCertificadoImpressao(GetData(), GetIgdData());
+                        formCertifiedResult.Show();
                     break;
             }
         }

@@ -8,6 +8,7 @@
         OrdersMonitor,
         Analisys,
         ProductAnalisys,
-        ProductSeriesData
+        ProductSeriesData,
+        CertifiedResult
     }
 }

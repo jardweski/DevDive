@@ -8,6 +8,7 @@
         ProdutoComposto,
         Analise,
         ProdutoAnalise,
-        ProdutosSerie
+        ProdutosSerie,
+        ProdutoPedido
     }
 }

@@ -63,5 +63,10 @@ namespace DevDive.Main
         {
             DevControl.OpenForm(EFormType.ProductSeriesData);
         }
+
+        private void impressãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DevControl.OpenForm(EFormType.CertifiedResult);
+        }
     }
 }

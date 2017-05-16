@@ -95,9 +95,9 @@ namespace DevDive.Register.Certificado.Impressao
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(16, 277);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(39, 13);
+            this.label18.Size = new System.Drawing.Size(49, 13);
             this.label18.TabIndex = 48;
-            this.label18.Text = "Series:";
+            this.label18.Text = "Analises:";
             // 
             // seriesDataGridView
             // 

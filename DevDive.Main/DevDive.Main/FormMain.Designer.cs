@@ -104,6 +104,7 @@
             this.impressãoToolStripMenuItem.Name = "impressãoToolStripMenuItem";
             this.impressãoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.impressãoToolStripMenuItem.Text = "Impressão";
+            this.impressãoToolStripMenuItem.Click += new System.EventHandler(this.impressãoToolStripMenuItem_Click);
             // 
             // cadastrosToolStripMenuItem
             // 

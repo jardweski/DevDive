@@ -59,6 +59,7 @@
       <DependentUpon>FormAnalises.cs</DependentUpon>
     </Compile>
     <Compile Include="Analises\Analise.cs" />
+    <Compile Include="Certificado\CertificadoControle.cs" />
     <Compile Include="Certificado\DadosDeProdutos\FormProdutoCertificado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +74,7 @@
     <Compile Include="Certificado\Impressao\FormCertificadoImpressao.Designer.cs">
       <DependentUpon>FormCertificadoImpressao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Certificado\Impressao\ProdutosPedido.cs" />
     <Compile Include="ETipoAnalise.cs" />
     <Compile Include="EFormType.cs" />
     <Compile Include="EMetodoAnalise.cs" />
