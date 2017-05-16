@@ -36,11 +36,9 @@ namespace DevDive.Register.Certificado.Impressao
             this.produtosDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.seriesDataGridView = new System.Windows.Forms.DataGridView();
             this.resultadosDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.seriesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +75,7 @@ namespace DevDive.Register.Certificado.Impressao
             this.produtosDataGridView.Name = "produtosDataGridView";
             this.produtosDataGridView.ReadOnly = true;
             this.produtosDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.produtosDataGridView.Size = new System.Drawing.Size(561, 237);
+            this.produtosDataGridView.Size = new System.Drawing.Size(881, 237);
             this.produtosDataGridView.TabIndex = 10;
             this.produtosDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.produtosDataGridView_RowEnter);
             // 
@@ -98,22 +96,6 @@ namespace DevDive.Register.Certificado.Impressao
             this.label18.Size = new System.Drawing.Size(49, 13);
             this.label18.TabIndex = 48;
             this.label18.Text = "Analises:";
-            // 
-            // seriesDataGridView
-            // 
-            this.seriesDataGridView.AllowUserToAddRows = false;
-            this.seriesDataGridView.AllowUserToDeleteRows = false;
-            this.seriesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.seriesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.seriesDataGridView.Location = new System.Drawing.Point(641, 34);
-            this.seriesDataGridView.MultiSelect = false;
-            this.seriesDataGridView.Name = "seriesDataGridView";
-            this.seriesDataGridView.ReadOnly = true;
-            this.seriesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.seriesDataGridView.Size = new System.Drawing.Size(314, 237);
-            this.seriesDataGridView.TabIndex = 49;
-            this.seriesDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.seriesDataGridView_RowEnter);
             // 
             // resultadosDataGridView
             // 
@@ -136,7 +118,6 @@ namespace DevDive.Register.Certificado.Impressao
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 531);
             this.Controls.Add(this.resultadosDataGridView);
-            this.Controls.Add(this.seriesDataGridView);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.produtosDataGridView);
@@ -148,7 +129,6 @@ namespace DevDive.Register.Certificado.Impressao
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.seriesDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -162,7 +142,6 @@ namespace DevDive.Register.Certificado.Impressao
         private System.Windows.Forms.DataGridView produtosDataGridView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DataGridView seriesDataGridView;
         private System.Windows.Forms.DataGridView resultadosDataGridView;
     }
 }

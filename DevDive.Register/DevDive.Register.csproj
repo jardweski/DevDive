@@ -75,6 +75,7 @@
       <DependentUpon>FormCertificadoImpressao.cs</DependentUpon>
     </Compile>
     <Compile Include="Certificado\Impressao\ProdutosPedido.cs" />
+    <Compile Include="Certificado\Impressao\ResultadoAnalise.cs" />
     <Compile Include="ETipoAnalise.cs" />
     <Compile Include="EFormType.cs" />
     <Compile Include="EMetodoAnalise.cs" />

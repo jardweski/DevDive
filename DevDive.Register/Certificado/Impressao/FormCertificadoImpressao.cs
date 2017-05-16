@@ -12,7 +12,7 @@ namespace DevDive.Register.Certificado.Impressao
     public partial class FormCertificadoImpressao : Form
     {
         private readonly CertificadoControle _certificadoControle;
-        private BindingList<Serie> _series;
+        private BindingList<ResultadoAnalise> _resultados;
         private ControleAnalise _analiseControl;
 
         public FormCertificadoImpressao(SqlConnection getData, SqlConnection getIgdData)
@@ -37,9 +37,10 @@ namespace DevDive.Register.Certificado.Impressao
                 case ETipoFormatGrid.ProdutoPedido:
                     produtosDataGridView.DataSource = dataSource;
                     break;
-                case ETipoFormatGrid.ProdutosSerie:
-                    seriesDataGridView.DataSource = dataSource;
+                    case ETipoFormatGrid.ResultadoAnalise:
+                        resultadosDataGridView.DataSource = dataSource;
                     break;
+
             }
 
 
@@ -56,22 +57,12 @@ namespace DevDive.Register.Certificado.Impressao
             if (e.RowIndex < 0)
                 return;
 
-            //var produto =
-            //    (ProdutoComposicao) produtosDataGridView.Rows[e.RowIndex].DataBoundItem;
-            //if (produto != null)
-            //    _series = _certificadoControle.GetSeriesProduct(produto.Id);
+            var produto =
+                (ProdutosPedido)produtosDataGridView.Rows[e.RowIndex].DataBoundItem;
+            if (produto != null)
+                _resultados = _certificadoControle.GetAnaliseResult(produto.IdProduto,produto.IdSerie,produto.IdPedido);
 
-            FormatarGrid(seriesDataGridView, ETipoFormatGrid.ProdutosSerie, _series);
-        }
-
-        private void seriesDataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-            var serie =
-                (Serie) seriesDataGridView.Rows[e.RowIndex].DataBoundItem;
-            //if (serie != null)
-                //CarregarAnalises(_analiseControl.GetAnalisys(serie.Id));
+            FormatarGrid(resultadosDataGridView, ETipoFormatGrid.ResultadoAnalise, _resultados);
         }
 
         private void CarregarAnalises()
@@ -86,11 +77,7 @@ namespace DevDive.Register.Certificado.Impressao
 
         private void Salvar()
         {
-            if (seriesDataGridView.CurrentRow.Index < 0)
-                return;
-            var serie =
-                (Serie) seriesDataGridView.CurrentRow.DataBoundItem;
-            //_certificadoControle.SaveProductSerieCertificate(RepassarValores(serie.Id));
+           //_certificadoControle.SaveProductSerieCertificate(RepassarValores(serie.Id));
         }
 
         private SerieCertificado RepassarValores(int serieId)

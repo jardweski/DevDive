@@ -9,6 +9,7 @@
         Analise,
         ProdutoAnalise,
         ProdutosSerie,
-        ProdutoPedido
+        ProdutoPedido,
+        ResultadoAnalise
     }
 }
