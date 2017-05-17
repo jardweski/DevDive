@@ -117,7 +117,7 @@ namespace DevDive.Register.Certificado.Impressao
                     (current, item) => current + (item.Id.ToString() + ","));
 
                 _reportModule.ReportParameter.SetVariableValue("IdsResultados", resultadosString);
-                _reportControl.Load(24);
+                _reportControl.Load(38);
                 _reportControl.SetReportParameters(_reportModule.ReportParameter);
                 _reportControl.ViewReport(this);
                 
