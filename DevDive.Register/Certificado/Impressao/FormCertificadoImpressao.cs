@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Windows.Forms;
 using DevDive.Register.Analises;
 using DevDive.Register.Certificado.DadosDeProdutos;
 using DevDive.Register.Produtos;
+using MP.Reporting.WinForms;
 
 namespace DevDive.Register.Certificado.Impressao
 {
@@ -13,14 +15,16 @@ namespace DevDive.Register.Certificado.Impressao
     {
         private readonly CertificadoControle _certificadoControle;
         private BindingList<ResultadoAnalise> _resultados;
-        private ControleAnalise _analiseControl;
+        private ReportModuleCertificado _reportModule;
+        private ReportControl _reportControl;
 
         public FormCertificadoImpressao(SqlConnection getData, SqlConnection getIgdData)
         {
             InitializeComponent();
 
+            _reportModule = ReportModuleCertificado.GetInstance();
+            _reportControl = new MP.Reporting.WinForms.ReportControl();
             _certificadoControle = new CertificadoControle(getData, getIgdData);
-            _analiseControl = new ControleAnalise(getData);
             CarregarProdutosPedidos();
         }
 
@@ -57,33 +61,67 @@ namespace DevDive.Register.Certificado.Impressao
             if (e.RowIndex < 0)
                 return;
 
+            CarregarResultados(e.RowIndex);
+        }
+
+        private void CarregarResultados(int index)
+        {
             var produto =
-                (ProdutosPedido)produtosDataGridView.Rows[e.RowIndex].DataBoundItem;
+                (ProdutosPedido) produtosDataGridView.Rows[index].DataBoundItem;
             if (produto != null)
-                _resultados = _certificadoControle.GetAnaliseResult(produto.IdProduto,produto.IdSerie,produto.IdPedido);
+                _resultados = _certificadoControle.GetAnaliseResult(produto.IdProduto, produto.IdSerie, produto.IdPedido);
 
             FormatarGrid(resultadosDataGridView, ETipoFormatGrid.ResultadoAnalise, _resultados);
         }
 
-        private void CarregarAnalises()
-        {
-            
-        }
 
         private void adicionarProcessoToolStripButton_Click(object sender, EventArgs e)
         {
             Salvar();
+            if (produtosDataGridView.CurrentRow != null)
+                CarregarResultados(produtosDataGridView.CurrentRow.Index);
         }
 
         private void Salvar()
         {
-           //_certificadoControle.SaveProductSerieCertificate(RepassarValores(serie.Id));
+            var resultados = ((BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource);
+
+            if (resultados.Any(p=>string.IsNullOrEmpty(p.Resultado)))
+            {
+                return;
+            }
+
+            _certificadoControle.SaveResultado(resultados);
         }
 
         private SerieCertificado RepassarValores(int serieId)
         {
 
             return new SerieCertificado();
+        }
+
+        private void resultadosDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (resultadosDataGridView.Columns[e.ColumnIndex].Name != "Resultado" )
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (produtosDataGridView.CurrentRow != null)
+            {
+                var resultados = ((BindingList<ResultadoAnalise>)resultadosDataGridView.DataSource);
+                var resultadosString = resultados.Aggregate("",
+                    (current, item) => current + (item.Id.ToString() + ","));
+
+                _reportModule.ReportParameter.SetVariableValue("IdsResultados", resultadosString);
+                _reportControl.Load(24);
+                _reportControl.SetReportParameters(_reportModule.ReportParameter);
+                _reportControl.ViewReport(this);
+                
+            }
         }
     }
 }

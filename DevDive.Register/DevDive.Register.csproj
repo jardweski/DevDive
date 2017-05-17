@@ -45,6 +45,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MP.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="MP.Reporting.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Reporting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MP.Reporting.WinForms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DevDive.Main\DevDive.Main\Referencias\MP.Reporting.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -76,6 +88,7 @@
     </Compile>
     <Compile Include="Certificado\Impressao\ProdutosPedido.cs" />
     <Compile Include="Certificado\Impressao\ResultadoAnalise.cs" />
+    <Compile Include="Certificado\Impressao\ReportModuleCertificado.cs" />
     <Compile Include="ETipoAnalise.cs" />
     <Compile Include="EFormType.cs" />
     <Compile Include="EMetodoAnalise.cs" />

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevDive.Common;
 using DevDive.Register.Certificado.DadosDeProdutos;
 using DevDive.Register.Certificado.Impressao;
 
@@ -94,7 +96,8 @@ namespace DevDive.Register.Certificado
 
 				using (
 					var myCommand = new SqlCommand(
-						$@"SELECT  [tblprodutosanalises].[IdAnalise] ,
+						$@"SELECT  [tblcertificadoresultado].[Id],
+                                [tblprodutosanalises].[IdAnalise] ,
                                 [tblanalises].[Descricao] AS Analise,
 				                [tblcertificadoresultado].[Resultado]
                         FROM    [dbo].[tblprodutosanalises]
@@ -109,6 +112,7 @@ namespace DevDive.Register.Certificado
 					while (myReader.Read())
 						returnList.Add(new ResultadoAnalise()
 						{
+                            Id = (int?)myReader["Id"],
 							IdAnalise = Convert.ToInt32(myReader["IdAnalise"]),
 							Analise = myReader["Analise"].ToString(),
 							Resultado = myReader["Resultado"].ToString(),
@@ -129,5 +133,59 @@ namespace DevDive.Register.Certificado
 			}
 			return null;
 		}
+
+	    public DevDiveReturn SaveResultado(BindingList<ResultadoAnalise> resultados)
+	    {
+	        _conn.Open();
+	        var tran = _conn.BeginTransaction();
+	        try
+	        {
+                foreach (var resultadoAnalise in resultados)
+	            {
+	                if (resultadoAnalise.Id==null)
+	                {
+	                    new SqlCommand($@"INSERT INTO [dbo].[tblcertificadoresultado]
+                                                ( [IdPedido] ,
+                                                  [IdSerie] ,
+                                                  [IdAnalise] ,
+                                                  [Resultado]
+                                                )
+                                        VALUES  ( {resultadoAnalise.IdPedido} ,
+                                                  {resultadoAnalise.IdSerie} ,
+                                                  {resultadoAnalise.IdAnalise} ,
+                                                  '{resultadoAnalise.Resultado}'
+                                                )", _conn, tran).ExecuteNonQuery();
+	                }else
+	                {
+	                    new SqlCommand($@"UPDATE [dbo].[tblcertificadoresultado]
+                                                SET [IdPedido]={resultadoAnalise.IdPedido},
+                                                  [IdSerie]={resultadoAnalise.IdSerie} ,
+                                                  [IdAnalise]={resultadoAnalise.IdAnalise} ,
+                                                  [Resultado]='{resultadoAnalise.Resultado}'
+                                               WHERE [tblcertificadoresultado].[Id]={resultadoAnalise.Id} ", _conn, tran).ExecuteNonQuery();
+                    }
+
+	            }
+
+	            tran.Commit();
+
+	            return new DevDiveReturn { Message = "Resultados salvos com sucesso!" };
+	        }
+	        catch (Exception ex)
+	        {
+	            tran.Rollback();
+
+	            return new DevDiveReturn
+	            {
+	                Errors = new List<string> { ex.Message + "\r\n" + ex.InnerException },
+	                Message = "Falha ao salvar resultado!"
+	            };
+	        }
+	        finally
+	        {
+	            _conn?.Close();
+	        }
+
+	    }
 	}
 }
