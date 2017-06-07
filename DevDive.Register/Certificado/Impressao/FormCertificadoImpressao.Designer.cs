@@ -33,14 +33,17 @@ namespace DevDive.Register.Certificado.Impressao
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCertificadoImpressao));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.adicionarProcessoToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.produtosDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.resultadosDataGridView = new System.Windows.Forms.DataGridView();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -51,7 +54,7 @@ namespace DevDive.Register.Certificado.Impressao
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(967, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1358, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -65,6 +68,16 @@ namespace DevDive.Register.Certificado.Impressao
             this.adicionarProcessoToolStripButton.Text = "Adicionar processo";
             this.adicionarProcessoToolStripButton.Click += new System.EventHandler(this.adicionarProcessoToolStripButton_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton1.Text = "Imprimir certificado";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // produtosDataGridView
             // 
             this.produtosDataGridView.AllowUserToAddRows = false;
@@ -72,12 +85,12 @@ namespace DevDive.Register.Certificado.Impressao
             this.produtosDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.produtosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.produtosDataGridView.Location = new System.Drawing.Point(74, 34);
+            this.produtosDataGridView.Location = new System.Drawing.Point(12, 50);
             this.produtosDataGridView.MultiSelect = false;
             this.produtosDataGridView.Name = "produtosDataGridView";
             this.produtosDataGridView.ReadOnly = true;
             this.produtosDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.produtosDataGridView.Size = new System.Drawing.Size(881, 237);
+            this.produtosDataGridView.Size = new System.Drawing.Size(530, 684);
             this.produtosDataGridView.TabIndex = 10;
             this.produtosDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.produtosDataGridView_RowEnter);
             // 
@@ -93,7 +106,7 @@ namespace DevDive.Register.Certificado.Impressao
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(16, 277);
+            this.label18.Location = new System.Drawing.Point(548, 335);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 13);
             this.label18.TabIndex = 48;
@@ -106,29 +119,44 @@ namespace DevDive.Register.Certificado.Impressao
             this.resultadosDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.resultadosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosDataGridView.Location = new System.Drawing.Point(74, 277);
+            this.resultadosDataGridView.Location = new System.Drawing.Point(551, 351);
             this.resultadosDataGridView.MultiSelect = false;
             this.resultadosDataGridView.Name = "resultadosDataGridView";
             this.resultadosDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.resultadosDataGridView.Size = new System.Drawing.Size(881, 237);
+            this.resultadosDataGridView.Size = new System.Drawing.Size(795, 383);
             this.resultadosDataGridView.TabIndex = 50;
             this.resultadosDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.resultadosDataGridView_CellBeginEdit);
             // 
-            // toolStripButton1
+            // dataGridView1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton1.Text = "Imprimir certificado";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(548, 50);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(798, 282);
+            this.dataGridView1.TabIndex = 51;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(548, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "Dados:";
             // 
             // FormCertificadoImpressao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 531);
+            this.ClientSize = new System.Drawing.Size(1358, 746);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.resultadosDataGridView);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label1);
@@ -142,6 +170,7 @@ namespace DevDive.Register.Certificado.Impressao
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,5 +185,7 @@ namespace DevDive.Register.Certificado.Impressao
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DataGridView resultadosDataGridView;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label2;
     }
 }

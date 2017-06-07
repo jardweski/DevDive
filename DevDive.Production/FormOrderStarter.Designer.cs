@@ -33,6 +33,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.iniciarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.encerrarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addProcessToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.ordemDeProduçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.lblDataConfirmacao = new System.Windows.Forms.Label();
             this.lblSituacao = new System.Windows.Forms.Label();
-            this.addProcessToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.finalProductsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.compositionDataGridView)).BeginInit();
@@ -95,7 +95,7 @@
             this.iniciarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.iniciarToolStripButton.Name = "iniciarToolStripButton";
             this.iniciarToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.iniciarToolStripButton.Text = "Iniciar produção";
+            this.iniciarToolStripButton.Text = "pro";
             this.iniciarToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // encerrarToolStripButton
@@ -107,6 +107,16 @@
             this.encerrarToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.encerrarToolStripButton.Text = "Encerrar produção";
             this.encerrarToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // addProcessToolStripButton
+            // 
+            this.addProcessToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addProcessToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("addProcessToolStripButton.Image")));
+            this.addProcessToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addProcessToolStripButton.Name = "addProcessToolStripButton";
+            this.addProcessToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.addProcessToolStripButton.Text = "Adicionar processo";
+            this.addProcessToolStripButton.Click += new System.EventHandler(this.addProcessToolStripButton_Click);
             // 
             // toolStripButton3
             // 
@@ -327,16 +337,6 @@
             this.lblSituacao.Size = new System.Drawing.Size(38, 13);
             this.lblSituacao.TabIndex = 16;
             this.lblSituacao.Text = "Aberto";
-            // 
-            // addProcessToolStripButton
-            // 
-            this.addProcessToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addProcessToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("addProcessToolStripButton.Image")));
-            this.addProcessToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addProcessToolStripButton.Name = "addProcessToolStripButton";
-            this.addProcessToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.addProcessToolStripButton.Text = "Adicionar processo";
-            this.addProcessToolStripButton.Click += new System.EventHandler(this.addProcessToolStripButton_Click);
             // 
             // FormOrderStarter
             // 

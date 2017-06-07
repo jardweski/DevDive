@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using DevDive.Common;
 using DevDive.Register.Processos;
+using MP.Reporting.WinForms;
 
 namespace DevDive.Production
 {
@@ -12,9 +14,9 @@ namespace DevDive.Production
         private readonly ProductionOrder _ordemProducao;
         private BindingList<ProcessProduction> _processos;
         private BindingList<Product> _produtosFinais;
+        private readonly ReportControl _reportControl;
+        private readonly ReportModuleProduction _reportModule;
         private BindingList<int> _requisicoesSelecionadas;
-        private ReportModuleProduction _reportModule;
-        private MP.Reporting.WinForms.ReportControl _reportControl;
 
         public FormOrderStarter(ProductionOrder ordemProducao, ProductionController controle)
         {
@@ -25,9 +27,9 @@ namespace DevDive.Production
             _controle = controle;
 
             _requisicoesSelecionadas = new BindingList<int>();
-            
+
             _reportModule = ReportModuleProduction.GetInstance();
-            _reportControl = new MP.Reporting.WinForms.ReportControl();
+            _reportControl = new ReportControl();
 
             CarregarOrdemProducao();
             CarregarProdutosFinais();
@@ -36,7 +38,8 @@ namespace DevDive.Production
 
         private void CarregarRequisicoes()
         {
-            PreencherRequisicoes(_controle.GetProductsRequisitionsOrder(_ordemProducao.Id, out _requisicoesSelecionadas));
+            PreencherRequisicoes(
+                _controle.GetProductsRequisitionsOrder(_ordemProducao.Id, out _requisicoesSelecionadas));
         }
 
         private void CarregarProdutosFinais()
@@ -136,23 +139,38 @@ namespace DevDive.Production
         private void IniciarProducao()
         {
             if (_controle.OrderHasStarted(_ordemProducao.Id))
-            {
                 MessageBox.Show(@"Ordem de produção já iniciada!", @"Aviso", MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
-            }
 
             if (_requisicoesSelecionadas == null || !_requisicoesSelecionadas.Any())
                 if (MessageBox.Show(
-                    @"Não há nenhuma requisição de material para essa ordem de produção, deseja continuar ?",
-                    @"Pergunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) !=
+                        @"Não há nenhuma requisição de material para essa ordem de produção, deseja continuar ?",
+                        @"Pergunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button1) !=
                     DialogResult.Yes)
                     return;
 
             if (MessageBox.Show(@"Iniciar ordem de produção?", @"Pergunta", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
                 return;
 
-            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas,_processos).Message, "Aviso",
+            foreach (var produtoFinal in _produtosFinais.Where(p=>string.IsNullOrEmpty(p.Serie)))
+            {
+                string serie = Prompt.ShowDialog("Informe a série do produto", "Criação de série");
+
+                if (string.IsNullOrEmpty(serie))
+                    return;
+
+                produtoFinal.Serie = serie;
+            }
+
+            if(!_controle.CreateSerieProducao(_produtosFinais).Sucess)
+            {
+                return;
+            }
+
+            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas, _processos,_produtosFinais).Message,
+                "Aviso",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             _controle.StartOrder(_ordemProducao.Id);
             DialogResult = DialogResult.Yes;
@@ -173,14 +191,13 @@ namespace DevDive.Production
             }
 
             if (MessageBox.Show(@"Finalizar ordem de produção?", @"Pergunta", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
                 return;
-            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas,_processos).Message, "Aviso",
+            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas, _processos,new BindingList<Product>()).Message,
+                "Aviso",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             foreach (var produtoFinal in _produtosFinais)
-            {
-                _controle.FinishOrder(_ordemProducao.Id, produtoFinal.Id, produtoFinal.Quantidade, _processos);
-            }
+                _controle.FinishOrder(_ordemProducao.Id, produtoFinal, _processos);
             DialogResult = DialogResult.Yes;
         }
 
@@ -201,9 +218,7 @@ namespace DevDive.Production
         {
             var orderForm = new FormRequisitions(_controle);
             if (orderForm.ShowDialog() == DialogResult.OK)
-            {
                 PreencherRequisicoes(orderForm.Produtos);
-            }
             _requisicoesSelecionadas = orderForm.Requisicoes;
         }
 
@@ -229,14 +244,13 @@ namespace DevDive.Production
             if (processDataGridView.Columns[e.ColumnIndex].Name != "TempoUtilizado" &&
                 processDataGridView.Columns[e.ColumnIndex].Name != "Tempo" &&
                 processDataGridView[e.ColumnIndex, e.RowIndex].Value.ToString() == "0")
-            {
                 e.Cancel = true;
-            }
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas,_processos).Message, "Aviso",
+            MessageBox.Show(this, _controle.SaveOrder(_ordemProducao.Id, _requisicoesSelecionadas, _processos,new BindingList<Product>()).Message,
+                "Aviso",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -252,7 +266,7 @@ namespace DevDive.Production
         private void relatórioDeCustosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Relatório de Custos
-            if(_ordemProducao != null)
+            if (_ordemProducao != null)
             {
                 _reportModule.ReportParameter.SetVariableValue("IdOP", _ordemProducao.Id);
                 _reportControl.Load(23);
@@ -290,9 +304,7 @@ namespace DevDive.Production
         {
             var orderForm = new FormSearchProcess(_controle._getData, _controle._getIgdData);
             if (orderForm.ShowDialog() == DialogResult.Yes)
-            {
                 AdicionarProcesso(orderForm.Processo);
-            }
         }
 
         private void AdicionarProcesso(Processo processo)

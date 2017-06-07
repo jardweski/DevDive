@@ -11,6 +11,7 @@ namespace DevDive.Production
         public string Descricao { get; set; }
 
         public decimal Quantidade { get; set; }
-        
+
+        public string Serie { get; set; }
     }
 }

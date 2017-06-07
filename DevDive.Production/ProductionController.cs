@@ -97,14 +97,17 @@ namespace DevDive.Production
                 using (
                     var myCommand =
                         new SqlCommand(
-                            @"SELECT  tblprodutos.Id,
-                                        tblprodutos.Codigo ,
-                                        tblprodutos.Descricao ,
-                                        tblprodutosmovimento.Quantidade
-                                FROM    dbo.tblordemproducaoprodutos
-                                        INNER JOIN dbo.tblprodutosmovimento ON tblprodutosmovimento.Id = tblordemproducaoprodutos.IdProdutoMovimento
-                                        INNER JOIN tblprodutos ON tblprodutos.Id = tblprodutosmovimento.IdProduto
-                                WHERE tblordemproducaoprodutos.IdOP=@IdOrdem", _getIgdData)
+                            @"SELECT  tblprodutos.Id ,
+                                    tblprodutos.Codigo ,
+                                    tblprodutos.Descricao ,
+                                    tblprodutosmovimento.Quantidade,
+                                    [tblprodutosserie].[Serie]
+                            FROM    dbo.tblordemproducaoprodutos
+                                    INNER JOIN dbo.tblprodutosmovimento ON tblprodutosmovimento.Id = tblordemproducaoprodutos.IdProdutoMovimento
+                                    INNER JOIN tblprodutos ON tblprodutos.Id = tblprodutosmovimento.IdProduto
+                                    LEFT JOIN [DevDive.Yerbalatina].dbo.[tblordemproducaoserie] ON [DevDive.Yerbalatina].dbo.[tblordemproducaoserie].[IdOP] = @IdOrdem
+                                    LEFT JOIN [dbo].[tblprodutosserie] ON [tblprodutosserie].[Id] = [DevDive.Yerbalatina].dbo.[tblordemproducaoserie].[IdSerie]
+                            WHERE   tblordemproducaoprodutos.IdOP = @IdOrdem;", _getIgdData)
                 )
                 {
                     var pIdOrder = new SqlParameter("@IdOrdem", SqlDbType.Int)
@@ -122,7 +125,8 @@ namespace DevDive.Production
                             Id = Convert.ToInt32(myReader["Id"]),
                             Codigo = myReader["Codigo"]?.ToString(),
                             Descricao = myReader["Descricao"]?.ToString(),
-                            Quantidade = Convert.ToDecimal(myReader["Quantidade"]?.ToString())
+                            Quantidade = Convert.ToDecimal(myReader["Quantidade"]?.ToString()),
+                            Serie = myReader["Serie"]?.ToString()
                         });
                 }
 
@@ -351,7 +355,7 @@ namespace DevDive.Production
             }
         }
 
-        public DevDiveReturn FinishOrder(int idOrdem, int idProduto, decimal quantidade,
+        public DevDiveReturn FinishOrder(int idOrdem,Product produtoFinal,
             BindingList<ProcessProduction> processos)
         {
             _getData.Open();
@@ -371,49 +375,11 @@ namespace DevDive.Production
                         SET     tblordemproducao.Situacao = 1 ,
                                 tblordemproducao.DataConfirmacao = GETDATE()
                         WHERE   tblordemproducao.Id = @IdOrdem", _getIgdData, tranIgd);
-
-                var serie =  "OP" + idOrdem + "-" + DateTime.Now.Date.ToString("dd/MM/yyyy");
-                var mySerieCommand = new SqlCommand(
-                    @"INSERT  INTO dbo.tblprodutosserie
-                                ( Inativo ,
-                                    IdProduto ,
-                                    Empresa ,
-                                    Serie ,
-                                    Estoque ,
-                                    EstoqueTransito 
-                                )
-                        VALUES  ( 0 , -- Inativo - bit
-                                    @IdProduto , -- IdProduto - int
-                                    1 , -- Empresa - int
-                                    @Serie , -- Serie - varchar(30)
-                                    @Estoque , -- Estoque - numeric
-                                    0  -- EstoqueTransito - numeric
-                                );", _getIgdData, tranIgd);
                 
-                var pSerie = new SqlParameter("@Serie", SqlDbType.VarChar)
-                {
-                    Value = serie
-                };
-
-                var pIdProduto = new SqlParameter("@IdProduto", SqlDbType.Int)
-                {
-                    Value = idProduto
-                };
-
-                var pEstoque = new SqlParameter("@Estoque", SqlDbType.Decimal)
-                {
-                    Value = quantidade
-                };
-
-                mySerieCommand.Parameters.Add(pSerie);
-                mySerieCommand.Parameters.Add(pIdProduto);
-                mySerieCommand.Parameters.Add(pEstoque);
-                mySerieCommand.ExecuteNonQuery();
-
                 var serieCommand = new SqlCommand($@"SELECT [tblprodutosserie].[Id] 
                                             FROM tblprodutosserie 
-                                            WHERE [tblprodutosserie].[IdProduto]= {idProduto}
-                                                    AND [tblprodutosserie].[Serie]='{serie}'", _getIgdData, tranIgd);
+                                            WHERE [tblprodutosserie].[IdProduto]= {produtoFinal.Id}
+                                                    AND [tblprodutosserie].[Serie]='{produtoFinal.Serie}'", _getIgdData, tranIgd);
                 var idSerie = Convert.ToInt32(serieCommand.ExecuteScalar());
                 var idProdutoMovimento = Convert.ToInt32(
                     new SqlCommand($@"SELECT  [tblordemproducaoprodutos].[IdProdutoMovimento]
@@ -433,10 +399,22 @@ namespace DevDive.Production
                                         )";
 
                 var produtoMovimentoSerieCommand = new SqlCommand(query, _getIgdData, tranIgd);
-                produtoMovimentoSerieCommand.Parameters.AddWithValue("@Quantidade", quantidade);
+                produtoMovimentoSerieCommand.Parameters.AddWithValue("@Quantidade", produtoFinal.Quantidade);
 
                 produtoMovimentoSerieCommand.ExecuteNonQuery();
 
+                var qtdeParam = new SqlParameter("@Quantidade", SqlDbType.Decimal)
+                {
+                    Value = produtoFinal.Quantidade
+                };
+
+                var queryEstoque = new SqlCommand($@"UPDATE  [dbo].[tblprodutosserie]
+                                SET     [tblprodutosserie].[Estoque] = [tblprodutosserie].[Estoque]
+                                        + @Quantidade
+                                WHERE   [tblprodutosserie].[Serie] = '{produtoFinal.Serie}'
+                                        AND [tblprodutosserie].[IdProduto] = {produtoFinal.Id}", _getIgdData, tranIgd);
+                queryEstoque.Parameters.Add(qtdeParam);
+                queryEstoque.ExecuteNonQuery();
 
                 var myEstoqueCommand = new SqlCommand(
                     @"UPDATE  dbo.tblprodutosestoque
@@ -452,12 +430,12 @@ namespace DevDive.Production
                 
                 var pIdProduto2 = new SqlParameter("@IdProduto", SqlDbType.Int)
                 {
-                    Value = idProduto
+                    Value = produtoFinal.Id
                 };
                 
                 var pEstoque2 = new SqlParameter("@Estoque", SqlDbType.Decimal)
                 {
-                    Value = quantidade
+                    Value = produtoFinal.Quantidade
                 };
                 var pIdOrdem = new SqlParameter("@IdOrdem", SqlDbType.Int)
                 {
@@ -798,11 +776,12 @@ namespace DevDive.Production
             return null;
         }
 
-        public DevDiveReturn SaveOrder(int idOrdem, BindingList<int> requisicoesSelecionadas,
-            BindingList<ProcessProduction> processos)
+        public DevDiveReturn SaveOrder(int idOrdem, BindingList<int> requisicoesSelecionadas, BindingList<ProcessProduction> processos, BindingList<Product> produtosFinais)
         {
             _getData.Open();
             var tran = _getData.BeginTransaction();
+            _getIgdData.Open();
+            var tranIgd = _getIgdData.BeginTransaction();
             try
             {
                 var myDelReq = new SqlCommand(
@@ -898,16 +877,30 @@ namespace DevDive.Production
                     myProcessCommand.Parameters.RemoveAt(0);
                 }
 
+                foreach (var produto in produtosFinais)
+                {
+                    var idSerie = new SqlCommand($@"SELECT  Id
+                                                    FROM    [dbo].[tblprodutosserie]
+                                                    WHERE   [tblprodutosserie].[Serie] = '{produto.Serie}'
+                                                            AND [tblprodutosserie].[IdProduto] = {produto.Id}", _getIgdData,
+                        tranIgd).ExecuteScalar();
+
+                    var teste = new SqlCommand($@"INSERT  INTO [DevDive.Yerbalatina].[dbo].[tblordemproducaoserie]
+                                        ( [IdOP] ,
+                                          [IdSerie]
+                                        )
+                                VALUES  ( '{idOrdem}' ,
+                                          {idSerie}
+                                        )", _getIgdData, tranIgd).ExecuteNonQuery();
+                }
 
                 tran.Commit();
-
-
-                return new DevDiveReturn {Message = "Ordem salva com sucesso!"};
+                tranIgd.Commit();
             }
             catch (Exception ex)
             {
                 tran.Rollback();
-
+                tranIgd.Rollback();
                 return new DevDiveReturn
                 {
                     Errors = new List<string> {ex.Message + "\r\n" + ex.InnerException},
@@ -917,7 +910,59 @@ namespace DevDive.Production
             finally
             {
                 _getData?.Close();
+                _getIgdData?.Close();
             }
+            return new DevDiveReturn { Message = "Ordem salva com sucesso!" };
+        }
+
+        public DevDiveReturn CreateSerieProducao(BindingList<Product> produtos)
+        {
+            _getIgdData.Open();
+            var trans = _getIgdData.BeginTransaction();
+            try
+            {
+                foreach (var produto in produtos)
+                {
+                    new SqlCommand(
+                        $@"INSERT  INTO dbo.tblprodutosserie
+                                ( Inativo ,
+                                    IdProduto ,
+                                    Empresa ,
+                                    Serie ,
+                                    Estoque ,
+                                    EstoqueTransito 
+                                )
+                        VALUES  ( 0 , -- Inativo - bit
+                                    {produto.Id} , -- IdProduto - int
+                                    1 , -- Empresa - int
+                                    '{produto.Serie}' , -- Serie - varchar(30)
+                                    0 , -- Estoque - numeric
+                                    0  -- EstoqueTransito - numeric
+                                )", _getIgdData,trans).ExecuteNonQuery();
+
+                    
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                trans.Rollback();
+                return new DevDiveReturn
+                {
+                    Errors = new List<string> { ex.Message + "\r\n" + ex.InnerException },
+                    Message = "Falha ao salvar processo!"
+                };
+            }
+            finally
+            {
+                _getIgdData?.Close();
+            }
+
+            return new DevDiveReturn()
+            {
+                Message = "Série criada com sucesso",
+                Errors = new List<string>()
+            };
         }
     }
 }
