@@ -465,13 +465,30 @@ namespace DevDive.Register.Produtos
         }
 
 
-        public SerieCertificado GetSeriesCertificate(int idSerie)
+        public BindingList<SerieCertificado> GetSeriesCertificate(int idSerie)
         {
             try
             {
                 _conn.Open();
 
-                var returnList = new List<SerieCertificado>();
+                var returnList = new BindingList<SerieCertificado>();
+
+                using (
+                    var myCommand = new SqlCommand(
+                        @"SELECT  [COLUMNS].[COLUMN_NAME] AS Coluna
+                        FROM    INFORMATION_SCHEMA.COLUMNS
+                        WHERE   TABLE_NAME = N'tblseriecertificado'", _conn))
+                {
+                    var myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                        returnList.Add(new SerieCertificado
+                        {
+                            Info = myReader["Coluna"].ToString()
+                        });
+
+                    myReader.Close();
+                }
 
                 using (
                     var myCommand = new SqlCommand(
@@ -497,36 +514,22 @@ namespace DevDive.Register.Produtos
                         WHERE   [tblseriecertificado].[IdSerie] = @IdSerie", _conn)
                 )
                 {
-                    var pIdSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = idSerie};
+                    var pIdSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = 1066 };
                     myCommand.Parameters.Add(pIdSerie);
 
                     var myReader = myCommand.ExecuteReader();
 
                     while (myReader.Read())
-                        returnList.Add(new SerieCertificado
+                    {
+                        foreach (var item in returnList)
                         {
-                            Id = Convert.ToInt32(myReader["Id"]),
-                            IdSerie = Convert.ToInt32(myReader["IdSerie"]),
-                            Code = myReader["Code"].ToString(),
-                            Batch = myReader["Batch"].ToString(),
-                            BotanicalSource = myReader["BotanicalSource"].ToString(),
-                            Family = myReader["Family"].ToString(),
-                            Origin = myReader["Origin"].ToString(),
-                            HarvestRegion = myReader["HarvestRegion"].ToString(),
-                            UsedPart = myReader["UsedPart"].ToString(),
-                            Preservative = myReader["Preservative"].ToString(),
-                            Colorant = myReader["Colorant"].ToString(),
-                            Solvent = myReader["Solvent"].ToString(),
-                            Carrier = myReader["Carrier"].ToString(),
-                            DryResidue = myReader["DryResidue"].ToString(),
-                            Ratio = myReader["Ratio"].ToString(),
-                            Irradiation = myReader["Irradiation"].ToString(),
-                            GMO = myReader["GMO"].ToString(),
-                            BSE = myReader["BSE"].ToString()
-                        });
+                            item.Value = myReader[item.Info].ToString();
+                        }
+
+                    }
                 }
 
-                return returnList.Any() ? returnList.First() : new SerieCertificado();
+                return returnList.Any() ? returnList : new BindingList<SerieCertificado>();
             }
             catch (Exception ex)
             {
@@ -553,7 +556,7 @@ namespace DevDive.Register.Produtos
 
                 var pId = new SqlParameter("@IdSerie", SqlDbType.Int)
                 {
-                    Value = serieCertificado.IdSerie
+                    Value = 1//serieCertificado.IdSerie
                 };
 
                 myCommand.Parameters.Add(pId);
@@ -599,52 +602,52 @@ namespace DevDive.Register.Produtos
                                             )",_conn,tran);
 
 
-                var idSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = serieCertificado.IdSerie};
-                var code = new SqlParameter("@Code", SqlDbType.Text) {Value = serieCertificado.Code};
-                var batch = new SqlParameter("@Batch", SqlDbType.Text) {Value = serieCertificado.Batch};
-                var botanicalSource =
-                    new SqlParameter("@BotanicalSource", SqlDbType.Text) {Value = serieCertificado.BotanicalSource};
-                var family = new SqlParameter("@Family", SqlDbType.Text) {Value = serieCertificado.Family};
-                var origin = new SqlParameter("@Origin", SqlDbType.Text) {Value = serieCertificado.Origin};
-                var harvestRegion =
-                    new SqlParameter("@HarvestRegion", SqlDbType.Text) {Value = serieCertificado.HarvestRegion};
-                var usedPart = new SqlParameter("@UsedPart", SqlDbType.Text) {Value = serieCertificado.UsedPart};
-                var preservative =
-                    new SqlParameter("@Preservative", SqlDbType.Text) {Value = serieCertificado.Preservative};
-                var colorant =
-                    new SqlParameter("@Colorant", SqlDbType.Text) {Value = serieCertificado.Colorant};
-                var solvent =
-                    new SqlParameter("@Solvent", SqlDbType.Text) {Value = serieCertificado.Solvent};
-                var carrier =
-                    new SqlParameter("@Carrier", SqlDbType.Text) {Value = serieCertificado.Carrier};
-                var dryResidue =
-                    new SqlParameter("@DryResidue", SqlDbType.Text) {Value = serieCertificado.DryResidue};
-                var ratio =
-                    new SqlParameter("@Ratio", SqlDbType.Text) {Value = serieCertificado.Ratio};
-                var irradiation =
-                    new SqlParameter("@Irradiation", SqlDbType.Text) {Value = serieCertificado.Irradiation};
-                var gmo =
-                    new SqlParameter("@GMO", SqlDbType.Text) {Value = serieCertificado.GMO};
-                var bse =
-                    new SqlParameter("@BSE", SqlDbType.Text) {Value = serieCertificado.BSE};
+                //var idSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = serieCertificado.IdSerie};
+                //var code = new SqlParameter("@Code", SqlDbType.Text) {Value = serieCertificado.Code};
+                //var batch = new SqlParameter("@Batch", SqlDbType.Text) {Value = serieCertificado.Batch};
+                //var botanicalSource =
+                //    new SqlParameter("@BotanicalSource", SqlDbType.Text) {Value = serieCertificado.BotanicalSource};
+                //var family = new SqlParameter("@Family", SqlDbType.Text) {Value = serieCertificado.Family};
+                //var origin = new SqlParameter("@Origin", SqlDbType.Text) {Value = serieCertificado.Origin};
+                //var harvestRegion =
+                //    new SqlParameter("@HarvestRegion", SqlDbType.Text) {Value = serieCertificado.HarvestRegion};
+                //var usedPart = new SqlParameter("@UsedPart", SqlDbType.Text) {Value = serieCertificado.UsedPart};
+                //var preservative =
+                //    new SqlParameter("@Preservative", SqlDbType.Text) {Value = serieCertificado.Preservative};
+                //var colorant =
+                //    new SqlParameter("@Colorant", SqlDbType.Text) {Value = serieCertificado.Colorant};
+                //var solvent =
+                //    new SqlParameter("@Solvent", SqlDbType.Text) {Value = serieCertificado.Solvent};
+                //var carrier =
+                //    new SqlParameter("@Carrier", SqlDbType.Text) {Value = serieCertificado.Carrier};
+                //var dryResidue =
+                //    new SqlParameter("@DryResidue", SqlDbType.Text) {Value = serieCertificado.DryResidue};
+                //var ratio =
+                //    new SqlParameter("@Ratio", SqlDbType.Text) {Value = serieCertificado.Ratio};
+                //var irradiation =
+                //    new SqlParameter("@Irradiation", SqlDbType.Text) {Value = serieCertificado.Irradiation};
+                //var gmo =
+                //    new SqlParameter("@GMO", SqlDbType.Text) {Value = serieCertificado.GMO};
+                //var bse =
+                //    new SqlParameter("@BSE", SqlDbType.Text) {Value = serieCertificado.BSE};
 
-                myCommand.Parameters.Add(idSerie);
-                myCommand.Parameters.Add(code);
-                myCommand.Parameters.Add(batch);
-                myCommand.Parameters.Add(botanicalSource);
-                myCommand.Parameters.Add(family);
-                myCommand.Parameters.Add(origin);
-                myCommand.Parameters.Add(harvestRegion);
-                myCommand.Parameters.Add(usedPart);
-                myCommand.Parameters.Add(preservative);
-                myCommand.Parameters.Add(colorant);
-                myCommand.Parameters.Add(solvent);
-                myCommand.Parameters.Add(carrier);
-                myCommand.Parameters.Add(dryResidue);
-                myCommand.Parameters.Add(ratio);
-                myCommand.Parameters.Add(irradiation);
-                myCommand.Parameters.Add(gmo);
-                myCommand.Parameters.Add(bse);
+                //myCommand.Parameters.Add(idSerie);
+                //myCommand.Parameters.Add(code);
+                //myCommand.Parameters.Add(batch);
+                //myCommand.Parameters.Add(botanicalSource);
+                //myCommand.Parameters.Add(family);
+                //myCommand.Parameters.Add(origin);
+                //myCommand.Parameters.Add(harvestRegion);
+                //myCommand.Parameters.Add(usedPart);
+                //myCommand.Parameters.Add(preservative);
+                //myCommand.Parameters.Add(colorant);
+                //myCommand.Parameters.Add(solvent);
+                //myCommand.Parameters.Add(carrier);
+                //myCommand.Parameters.Add(dryResidue);
+                //myCommand.Parameters.Add(ratio);
+                //myCommand.Parameters.Add(irradiation);
+                //myCommand.Parameters.Add(gmo);
+                //myCommand.Parameters.Add(bse);
 
                 myCommand.ExecuteNonQuery();
 

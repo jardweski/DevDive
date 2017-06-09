@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-using DevDive.Register.Analises;
 using DevDive.Register.Certificado.DadosDeProdutos;
 using DevDive.Register.Produtos;
 using MP.Reporting.WinForms;
@@ -14,17 +13,19 @@ namespace DevDive.Register.Certificado.Impressao
     public partial class FormCertificadoImpressao : Form
     {
         private readonly CertificadoControle _certificadoControle;
+        private readonly ReportControl _reportControl;
+        private readonly ReportModuleCertificado _reportModule;
         private BindingList<ResultadoAnalise> _resultados;
-        private ReportModuleCertificado _reportModule;
-        private ReportControl _reportControl;
+        private ProdutoControle _produtoControl;
 
         public FormCertificadoImpressao(SqlConnection getData, SqlConnection getIgdData)
         {
             InitializeComponent();
 
             _reportModule = ReportModuleCertificado.GetInstance();
-            _reportControl = new MP.Reporting.WinForms.ReportControl();
+            _reportControl = new ReportControl();
             _certificadoControle = new CertificadoControle(getData, getIgdData);
+            _produtoControl = new ProdutoControle(getData,getIgdData);
             CarregarProdutosPedidos();
         }
 
@@ -36,15 +37,25 @@ namespace DevDive.Register.Certificado.Impressao
 
         private void FormatarGrid<T>(DataGridView dataGridView, ETipoFormatGrid tipo, BindingList<T> dataSource)
         {
+            dataGridView.DataSource = dataSource;
             switch (tipo)
             {
                 case ETipoFormatGrid.ProdutoPedido:
-                    produtosDataGridView.DataSource = dataSource;
+                    foreach (DataGridViewColumn coluna in produtosDataGridView.Columns)
+                    {
+                        if (coluna.Name.Contains("IdProduto") ||
+                            coluna.Name.Contains("IdSerie"))
+                            coluna.Visible = false;
+                        if (coluna.Name.Contains("IdOrdemProducao"))
+                            coluna.HeaderText = @"OP";
+                        if (coluna.Name.Contains("IdPedidoDeVenda"))
+                            coluna.HeaderText = @"PV";
+                    }
                     break;
-                    case ETipoFormatGrid.ResultadoAnalise:
-                        resultadosDataGridView.DataSource = dataSource;
+                case ETipoFormatGrid.ResultadoAnalise:
                     break;
-
+                case ETipoFormatGrid.AnaliseSerie:
+                    break;
             }
 
 
@@ -62,6 +73,22 @@ namespace DevDive.Register.Certificado.Impressao
                 return;
 
             CarregarResultados(e.RowIndex);
+            CarregarDados(e.RowIndex);
+        }
+
+        private void CarregarDados(int index)
+        {
+            var produto =
+                (ProdutosPedido)produtosDataGridView.Rows[index].DataBoundItem;
+            if (produto != null)
+            {
+                BindingList<SerieCertificado> teste;
+                teste =
+                    _produtoControl.GetSeriesCertificate((int)produto.IdSerie);
+                FormatarGrid(dataGridView1,ETipoFormatGrid.AnaliseSerie,teste );
+            }
+
+            
         }
 
         private void CarregarResultados(int index)
@@ -69,7 +96,8 @@ namespace DevDive.Register.Certificado.Impressao
             var produto =
                 (ProdutosPedido) produtosDataGridView.Rows[index].DataBoundItem;
             if (produto != null)
-                _resultados = _certificadoControle.GetAnaliseResult(produto.IdProduto, produto.IdSerie, produto.IdPedido);
+                _resultados =
+                    _certificadoControle.GetAnaliseResult(produto.IdProduto, produto.IdSerie, produto.IdPedido);
 
             FormatarGrid(resultadosDataGridView, ETipoFormatGrid.ResultadoAnalise, _resultados);
         }
@@ -84,43 +112,37 @@ namespace DevDive.Register.Certificado.Impressao
 
         private void Salvar()
         {
-            var resultados = ((BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource);
+            var resultados = (BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource;
 
-            if (resultados.Any(p=>string.IsNullOrEmpty(p.Resultado)))
-            {
+            if (resultados.Any(p => string.IsNullOrEmpty(p.Resultado)))
                 return;
-            }
 
             _certificadoControle.SaveResultado(resultados);
         }
 
         private SerieCertificado RepassarValores(int serieId)
         {
-
             return new SerieCertificado();
         }
 
         private void resultadosDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (resultadosDataGridView.Columns[e.ColumnIndex].Name != "Resultado" )
-            {
+            if (resultadosDataGridView.Columns[e.ColumnIndex].Name != "Resultado")
                 e.Cancel = true;
-            }
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             if (produtosDataGridView.CurrentRow != null)
             {
-                var resultados = ((BindingList<ResultadoAnalise>)resultadosDataGridView.DataSource);
+                var resultados = (BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource;
                 var resultadosString = resultados.Aggregate("",
-                    (current, item) => current + (item.Id.ToString() + ","));
+                    (current, item) => current + item.Id.ToString() + ",");
 
                 _reportModule.ReportParameter.SetVariableValue("IdsResultados", resultadosString);
                 _reportControl.Load(38);
                 _reportControl.SetReportParameters(_reportModule.ReportParameter);
                 _reportControl.ViewReport(this);
-                
             }
         }
     }

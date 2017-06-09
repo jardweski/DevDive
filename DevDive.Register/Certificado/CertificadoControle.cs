@@ -33,29 +33,26 @@ namespace DevDive.Register.Certificado
 
 				using (
 					var myCommand = new SqlCommand(
-						@"SELECT  tblordemproducao.Id AS IdOrdemProducao ,
-									[tblordemproducaopedidos].[IdPedidoVenda] AS IdPedido ,
-									[tblprodutos].[Id] AS IdProduto ,
-									[tblprodutos].[Codigo] AS ProdutoCodigo ,
-									tblprodutos.Descricao AS ProdutoDescricao,
-									[tblprodutosserie].[Id] AS IdSerie,
-									[tblprodutosserie].[Serie]
-							FROM    tblordemproducao
-									INNER JOIN dbo.tblordemproducaoprodutos ON tblordemproducaoprodutos.IdOP = tblordemproducao.Id
-									INNER JOIN dbo.tblprodutosmovimento ON tblprodutosmovimento.Id = tblordemproducaoprodutos.IdProdutoMovimento
-									INNER JOIN dbo.tblprodutos ON tblprodutos.Id = tblprodutosmovimento.IdProduto
-									LEFT JOIN dbo.tblordemproducaopedidos ON tblordemproducaopedidos.IdOrdemProducao = tblordemproducao.Id
-									LEFT JOIN tblpedidodevenda ON tblpedidodevenda.Id = tblordemproducaopedidos.IdPedidoVenda
-									LEFT JOIN [DevDive.Yerbalatina].dbo.tblordemdeproducaostatus ON tblordemdeproducaostatus.IdOrdemProducao = tblordemproducao.Id
-									LEFT JOIN [dbo].[tblprodutosmovimentoserie] ON [tblprodutosmovimentoserie].[IdProdutoMovimento] = [tblprodutosmovimento].[Id]
-									LEFT JOIN [dbo].[tblprodutosserie] ON [tblprodutosserie].[Id] = [tblprodutosmovimentoserie].[IdSerie]
-							WHERE   CASE WHEN tblordemdeproducaostatus.Status IS NULL
-										 THEN CASE WHEN tblordemproducao.Situacao = 1 THEN 2
-												   ELSE tblordemproducao.Situacao
-											  END
-										 ELSE tblordemdeproducaostatus.Status
-									END = 2
-							ORDER BY tblordemproducao.DataLancamento DESC", _connIgd)
+                        @"SELECT  
+		                        [tblprodutos].[Id] AS IdProduto,
+		                        [tblprodutosserie].[Id] AS IdSerie,
+                                [tblprodutos].[Codigo] AS CodigoProduto,
+		                        [tblprodutos].[Descricao] AS Produto,
+		                        [tblprodutosserie].[Serie],
+		                        [tblordemproducao].[Id] AS IdOrdemProducao,
+		                        [tblpedidodevenda].[Id] AS IdPedidoDeVenda
+                        FROM    [dbo].[tblprodutos]
+                                INNER JOIN [dbo].[tblprodutosestoque] ON [tblprodutosestoque].[IdProduto] = [tblprodutos].[Id]
+                                LEFT JOIN [dbo].[tblprodutosserie] ON [tblprodutosserie].[IdProduto] = [tblprodutos].[Id]
+                                LEFT JOIN [DevDive.Yerbalatina].[dbo].[tblordemproducaoserie] ON [DevDive.Yerbalatina].[dbo].[tblordemproducaoserie].[IdSerie] = [tblprodutosserie].[Id]
+                                LEFT JOIN [dbo].[tblordemproducao] ON [tblordemproducao].[Id] = [DevDive.Yerbalatina].[dbo].[tblordemproducaoserie].[IdOP]
+                                LEFT JOIN [dbo].[tblordemproducaopedidos] ON [tblordemproducaopedidos].[IdOrdemProducao] = [tblordemproducao].[Id]
+                                LEFT JOIN [dbo].[tblpedidodevenda] ON [tblpedidodevenda].[Id] = [tblordemproducaopedidos].[IdPedidoVenda]
+                        WHERE   [tblprodutosserie].[Inativo] = 0
+                                AND [tblprodutosestoque].[Inativo] = 0
+                                AND [tblprodutosestoque].[Empresa] = 1
+                        ORDER BY [tblpedidodevenda].[Id] desc ,
+                                [tblprodutos].[Descricao]", _connIgd)
 				)
 				{
 					var myReader = myCommand.ExecuteReader();
@@ -63,11 +60,11 @@ namespace DevDive.Register.Certificado
 					while (myReader.Read())
 						returnList.Add(new ProdutosPedido
 						{
-							IdOrdemProducao = Convert.ToInt32(myReader["IdOrdemProducao"]),
-							IdPedido = myReader["IdPedido"] == DBNull.Value ? (int?)null : Convert.ToInt32(myReader["IdPedido"]),
+							IdOrdemProducao = myReader["IdOrdemProducao"] == DBNull.Value ? (int?)null : Convert.ToInt32(myReader["IdOrdemProducao"]),
+							IdPedido = myReader["IdPedidoDeVenda"] == DBNull.Value ? (int?)null : Convert.ToInt32(myReader["IdPedidoDeVenda"]),
 							IdProduto = Convert.ToInt32(myReader["IdProduto"]),
-							ProdutoCodigo = myReader["ProdutoCodigo"].ToString(),
-							ProdutoDescricao = myReader["ProdutoDescricao"].ToString(),
+							ProdutoCodigo = myReader["CodigoProduto"].ToString(),
+							ProdutoDescricao = myReader["Produto"].ToString(),
 							IdSerie = myReader["IdSerie"]==DBNull.Value?(int?)null: Convert.ToInt32(myReader["IdSerie"]),
 							Serie = myReader["Serie"].ToString()
 						});

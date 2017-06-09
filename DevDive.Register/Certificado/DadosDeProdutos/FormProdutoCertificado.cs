@@ -67,28 +67,28 @@ namespace DevDive.Register.Certificado.DadosDeProdutos
                 return;
             var serie =
                 (Serie) seriesDataGridView.Rows[e.RowIndex].DataBoundItem;
-            if (serie != null)
-                CarregarCampos(serie.Descricao, _produtoControl.GetSeriesCertificate(serie.Id));
+           // if (serie != null)
+               // CarregarCampos(serie.Descricao, _produtoControl.GetSeriesCertificate(serie.Id));
         }
 
         private void CarregarCampos(string serieDescricao, SerieCertificado serieCertificado)
         {
-            CodetextBox.Text = serieCertificado.Code;
-            batchtextBox.Text = serieDescricao;
-            botanicaltextBox.Text = serieCertificado.BotanicalSource;
-            familytextBox.Text = serieCertificado.Family;
-            origintextBox.Text = serieCertificado.Origin;
-            harvesttextBox.Text = serieCertificado.HarvestRegion;
-            userdparttextBox.Text = serieCertificado.UsedPart;
-            preservativetextBox.Text = serieCertificado.Preservative;
-            coloranttextBox.Text = serieCertificado.Colorant;
-            solventtextBox.Text = serieCertificado.Solvent;
-            carriertextBox.Text = serieCertificado.Carrier;
-            drytextBox.Text = serieCertificado.DryResidue;
-            ratiotextBox.Text = serieCertificado.Ratio;
-            irradiationtextBox.Text = serieCertificado.Irradiation;
-            gmotextBox.Text = serieCertificado.GMO;
-            bsetextBox.Text = serieCertificado.BSE;
+            //CodetextBox.Text = serieCertificado.Code;
+            //batchtextBox.Text = serieDescricao;
+            //botanicaltextBox.Text = serieCertificado.BotanicalSource;
+            //familytextBox.Text = serieCertificado.Family;
+            //origintextBox.Text = serieCertificado.Origin;
+            //harvesttextBox.Text = serieCertificado.HarvestRegion;
+            //userdparttextBox.Text = serieCertificado.UsedPart;
+            //preservativetextBox.Text = serieCertificado.Preservative;
+            //coloranttextBox.Text = serieCertificado.Colorant;
+            //solventtextBox.Text = serieCertificado.Solvent;
+            //carriertextBox.Text = serieCertificado.Carrier;
+            //drytextBox.Text = serieCertificado.DryResidue;
+            //ratiotextBox.Text = serieCertificado.Ratio;
+            //irradiationtextBox.Text = serieCertificado.Irradiation;
+            //gmotextBox.Text = serieCertificado.GMO;
+            //bsetextBox.Text = serieCertificado.BSE;
         }
 
         private void adicionarProcessoToolStripButton_Click(object sender, EventArgs e)
@@ -109,23 +109,23 @@ namespace DevDive.Register.Certificado.DadosDeProdutos
         {
             var serieCertificado = new SerieCertificado
             {
-                Code = CodetextBox.Text,
-                Batch = batchtextBox.Text,
-                BotanicalSource = botanicaltextBox.Text,
-                Family = familytextBox.Text,
-                Origin = origintextBox.Text,
-                HarvestRegion = harvesttextBox.Text,
-                UsedPart = userdparttextBox.Text,
-                Preservative = preservativetextBox.Text,
-                Colorant = coloranttextBox.Text,
-                Solvent = solventtextBox.Text,
-                Carrier = carriertextBox.Text,
-                DryResidue = drytextBox.Text,
-                Ratio = ratiotextBox.Text,
-                Irradiation = irradiationtextBox.Text,
-                GMO = gmotextBox.Text,
-                BSE = bsetextBox.Text,
-                IdSerie = serieId
+                //Code = CodetextBox.Text,
+                //Batch = batchtextBox.Text,
+                //BotanicalSource = botanicaltextBox.Text,
+                //Family = familytextBox.Text,
+                //Origin = origintextBox.Text,
+                //HarvestRegion = harvesttextBox.Text,
+                //UsedPart = userdparttextBox.Text,
+                //Preservative = preservativetextBox.Text,
+                //Colorant = coloranttextBox.Text,
+                //Solvent = solventtextBox.Text,
+                //Carrier = carriertextBox.Text,
+                //DryResidue = drytextBox.Text,
+                //Ratio = ratiotextBox.Text,
+                //Irradiation = irradiationtextBox.Text,
+                //GMO = gmotextBox.Text,
+                //BSE = bsetextBox.Text,
+                //IdSerie = serieId
             };
 
             return serieCertificado;
