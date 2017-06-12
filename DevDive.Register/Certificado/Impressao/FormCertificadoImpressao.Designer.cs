@@ -54,7 +54,7 @@ namespace DevDive.Register.Certificado.Impressao
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1554, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1104, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -83,15 +83,13 @@ namespace DevDive.Register.Certificado.Impressao
             this.produtosDataGridView.AllowUserToAddRows = false;
             this.produtosDataGridView.AllowUserToDeleteRows = false;
             this.produtosDataGridView.AllowUserToOrderColumns = true;
-            this.produtosDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.produtosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.produtosDataGridView.Location = new System.Drawing.Point(12, 50);
             this.produtosDataGridView.MultiSelect = false;
             this.produtosDataGridView.Name = "produtosDataGridView";
             this.produtosDataGridView.ReadOnly = true;
             this.produtosDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.produtosDataGridView.Size = new System.Drawing.Size(880, 684);
+            this.produtosDataGridView.Size = new System.Drawing.Size(766, 703);
             this.produtosDataGridView.TabIndex = 10;
             this.produtosDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.produtosDataGridView_RowEnter);
             // 
@@ -107,7 +105,7 @@ namespace DevDive.Register.Certificado.Impressao
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(895, 335);
+            this.label18.Location = new System.Drawing.Point(781, 335);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 13);
             this.label18.TabIndex = 48;
@@ -120,11 +118,11 @@ namespace DevDive.Register.Certificado.Impressao
             this.resultadosDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.resultadosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosDataGridView.Location = new System.Drawing.Point(898, 351);
+            this.resultadosDataGridView.Location = new System.Drawing.Point(784, 351);
             this.resultadosDataGridView.MultiSelect = false;
             this.resultadosDataGridView.Name = "resultadosDataGridView";
             this.resultadosDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.resultadosDataGridView.Size = new System.Drawing.Size(644, 383);
+            this.resultadosDataGridView.Size = new System.Drawing.Size(314, 402);
             this.resultadosDataGridView.TabIndex = 50;
             this.resultadosDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.resultadosDataGridView_CellBeginEdit);
             // 
@@ -135,17 +133,17 @@ namespace DevDive.Register.Certificado.Impressao
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(898, 50);
+            this.dataGridView1.Location = new System.Drawing.Point(784, 50);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(644, 282);
+            this.dataGridView1.Size = new System.Drawing.Size(314, 282);
             this.dataGridView1.TabIndex = 51;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(895, 34);
+            this.label2.Location = new System.Drawing.Point(781, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 52;
@@ -155,7 +153,7 @@ namespace DevDive.Register.Certificado.Impressao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1554, 765);
+            this.ClientSize = new System.Drawing.Size(1104, 765);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.resultadosDataGridView);

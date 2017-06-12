@@ -492,29 +492,12 @@ namespace DevDive.Register.Produtos
 
                 using (
                     var myCommand = new SqlCommand(
-                        @"SELECT  [tblseriecertificado].[Id] ,
-                                [tblseriecertificado].[IdSerie] ,
-                                [tblseriecertificado].[Code] ,
-                                [tblseriecertificado].[Batch] ,
-                                [tblseriecertificado].[BotanicalSource] ,
-                                [tblseriecertificado].[Family] ,
-                                [tblseriecertificado].[Origin] ,
-                                [tblseriecertificado].[HarvestRegion] ,
-                                [tblseriecertificado].[UsedPart] ,
-                                [tblseriecertificado].[Preservative] ,
-                                [tblseriecertificado].[Colorant] ,
-                                [tblseriecertificado].[Solvent] ,
-                                [tblseriecertificado].[Carrier] ,
-                                [tblseriecertificado].[DryResidue] ,
-                                [tblseriecertificado].[Ratio] ,
-                                [tblseriecertificado].[Irradiation] ,
-                                [tblseriecertificado].[GMO] ,
-                                [tblseriecertificado].[BSE]
+                        @"SELECT *
                         FROM    [dbo].[tblseriecertificado]
                         WHERE   [tblseriecertificado].[IdSerie] = @IdSerie", _conn)
                 )
                 {
-                    var pIdSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = 1066 };
+                    var pIdSerie = new SqlParameter("@IdSerie", SqlDbType.Int) {Value = idSerie };
                     myCommand.Parameters.Add(pIdSerie);
 
                     var myReader = myCommand.ExecuteReader();

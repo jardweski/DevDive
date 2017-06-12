@@ -53,8 +53,28 @@ namespace DevDive.Register.Certificado.Impressao
                     }
                     break;
                 case ETipoFormatGrid.ResultadoAnalise:
+                    foreach (DataGridViewColumn coluna in resultadosDataGridView.Columns)
+                    {
+                        if (coluna.Name.Equals("IdPedido") ||
+                            coluna.Name.Equals("IdSerie") ||
+                            coluna.Name.Equals("Id"))
+                            coluna.Visible = false;
+                    }
                     break;
                 case ETipoFormatGrid.AnaliseSerie:
+                    CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dataGridView1.DataSource];
+                    currencyManager1.SuspendBinding();
+                    foreach (DataGridViewRow linha in dataGridView1.Rows)
+                    {
+                        if (((SerieCertificado)linha.DataBoundItem).Info == "Id" ||
+                            ((SerieCertificado)linha.DataBoundItem).Info == "IdSerie" ||
+                            ((SerieCertificado)linha.DataBoundItem).Info == "Batch")
+                        {   
+                            linha.Visible = false;
+                        }
+                    }
+                    currencyManager1.ResumeBinding();
+
                     break;
             }
 
@@ -82,9 +102,7 @@ namespace DevDive.Register.Certificado.Impressao
                 (ProdutosPedido)produtosDataGridView.Rows[index].DataBoundItem;
             if (produto != null)
             {
-                BindingList<SerieCertificado> teste;
-                teste =
-                    _produtoControl.GetSeriesCertificate((int)produto.IdSerie);
+                var teste = _produtoControl.GetSeriesCertificate((int)produto.IdSerie);
                 FormatarGrid(dataGridView1,ETipoFormatGrid.AnaliseSerie,teste );
             }
 
@@ -112,12 +130,17 @@ namespace DevDive.Register.Certificado.Impressao
 
         private void Salvar()
         {
-            var resultados = (BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource;
+            if (produtosDataGridView.CurrentRow != null)
+            {
+                var resultados = (BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource;
 
-            if (resultados.Any(p => string.IsNullOrEmpty(p.Resultado)))
-                return;
+                var dados = (BindingList<SerieCertificado>) dataGridView1.DataSource;
 
-            _certificadoControle.SaveResultado(resultados);
+                var produto =
+                    (ProdutosPedido)produtosDataGridView.CurrentRow.DataBoundItem;
+
+                _certificadoControle.SaveResultado(produto, resultados.Where(p => !string.IsNullOrEmpty(p.Resultado)),dados);
+            }
         }
 
         private SerieCertificado RepassarValores(int serieId)
