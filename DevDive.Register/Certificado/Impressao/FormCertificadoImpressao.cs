@@ -159,10 +159,10 @@ namespace DevDive.Register.Certificado.Impressao
             if (produtosDataGridView.CurrentRow != null)
             {
                 var resultados = (BindingList<ResultadoAnalise>) resultadosDataGridView.DataSource;
-                var resultadosString = resultados.Aggregate("",
+                var resultadosString = resultados.Where(p=>!string.IsNullOrEmpty(p.Resultado)).Aggregate("",
                     (current, item) => current + item.Id.ToString() + ",");
 
-                _reportModule.ReportParameter.SetVariableValue("IdsResultados", resultadosString);
+                _reportModule.ReportParameter.SetVariableValue("IdsResultados", resultadosString.Substring(0,resultadosString.Length-1));
                 _reportControl.Load(38);
                 _reportControl.SetReportParameters(_reportModule.ReportParameter);
                 _reportControl.ViewReport(this);
